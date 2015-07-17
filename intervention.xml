@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<tryton>
+    <data>
+        <record model="ir.ui.view" id="intervention_view_form">
+            <field name="model">working_shift.intervention</field>
+            <field name="type">form</field>
+            <field name="name">intervention_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="intervention_view_list">
+            <field name="model">working_shift.intervention</field>
+            <field name="type">tree</field>
+            <field name="name">intervention_list</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_intervention">
+            <field name="name">Interventions</field>
+            <field name="res_model">working_shift.intervention</field>
+        </record>
+        <record model="ir.action.act_window.view" id="act_intervention_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="intervention_view_list"/>
+            <field name="act_window" ref="act_intervention"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_intervention_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="intervention_view_form"/>
+            <field name="act_window" ref="act_intervention"/>
+        </record>
+
+        <record model="ir.model.access" id="access_intervention">
+            <field name="model" search="[('model', '=', 'working_shift.intervention')]"/>
+            <field name="group" ref="group_working_shift"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <record model="ir.model.access" id="access_intervention_admin">
+            <field name="model" search="[('model', '=', 'working_shift.intervention')]"/>
+            <field name="group" ref="group_working_shift_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
+
+        <menuitem id="menu_intervention" action="act_intervention"
+            parent="menu_working_shift_form"/>
+    </data>
+</tryton>

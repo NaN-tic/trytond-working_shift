@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form string="Working Shift Configuration">
+    <label name="working_shift_sequence"/>
+    <field name="working_shift_sequence"/>
+    <label name="intervention_sequence"/>
+    <field name="intervention_sequence"/>
+</form>

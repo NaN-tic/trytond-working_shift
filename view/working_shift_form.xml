@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<form string="Working Shift" col="6">
+    <label name="code"/>
+    <field name="code"/>
+    <label name="employee"/>
+    <field name="employee"/>
+    <newline/>
+    <label name="start_date"/>
+    <field name="start_date"/>
+    <label name="end_date"/>
+    <field name="end_date"/>
+    <label name="hours"/>
+    <field name="hours"/>
+    <field name="interventions" colspan="6"/>
+    <group col="4" colspan="6" id="state_buttons">
+        <label name="state"/>
+        <field name="state"/>
+        <group col="5" colspan="2" id="buttons">
+            <button string="Cancel" name="cancel"/>
+            <button string="Draft" name="draft"/>
+            <button string="Confirm" name="confirm"/>
+            <button string="Done" name="done"/>
+        </group>
+    </group>
+</form>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<tree string="Working Shifts">
+    <field name="code"/>
+    <field name="employee"/>
+    <field name="start_date"/>
+    <field name="end_date"/>
+    <field name="hours"/>
+    <field name="state"/>
+</tree>
