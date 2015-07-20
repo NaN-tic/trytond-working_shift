@@ -20,6 +20,7 @@ DEPENDS = ['state']
 class WorkingShift(Workflow, ModelSQL, ModelView):
     'Working Shift'
     __name__ = 'working_shift'
+    _rec_name = 'code'
     code = fields.Char('Code', readonly=True, required=True)
     employee = fields.Many2One('company.employee', 'Employee', required=True,
         states=STATES, depends=DEPENDS)
