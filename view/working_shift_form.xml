@@ -13,7 +13,14 @@
     <field name="end_date"/>
     <label name="hours"/>
     <field name="hours"/>
-    <field name="interventions" colspan="6"/>
+    <notebook colspan="6">
+        <page name="interventions">
+            <field name="interventions" colspan="4"/>
+        </page>
+        <page name="comment">
+            <field name="comment" colspan="4"/>
+        </page>
+    </notebook>
     <group col="4" colspan="6" id="state_buttons">
         <label name="state"/>
         <field name="state"/>

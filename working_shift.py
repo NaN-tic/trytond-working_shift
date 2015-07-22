@@ -40,6 +40,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         'on_change_with_hours')
     interventions = fields.One2Many('working_shift.intervention', 'shift',
         'Interventions', states=STATES, depends=DEPENDS)
+    comment = fields.Text('Comment')
     state = fields.Selection([
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
@@ -79,6 +80,8 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
                 'missing_working_shift_sequence': (
                     'There is no working shift sequence defined.\n'
                     'Please, define one in working shift configuration.'),
+                'delete_non_draft': ('Working Shift "%s" can not be deleted '
+                    'because it is not in draft state.'),
                 })
 
     @staticmethod
@@ -138,3 +141,9 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
                 continue
             value['code'] = Sequence.get_id(config.working_shift_sequence.id)
         return super(WorkingShift, cls).create(vlist)
+
+    @classmethod
+    def delete(cls, working_shifts):
+        for working_shift in working_shifts:
+            if working_shift.state != 'draft':
+                cls.raise_user_error('delete_non_draft', working_shift.rec_name)

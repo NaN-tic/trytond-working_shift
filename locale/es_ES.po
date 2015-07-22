@@ -32,9 +32,19 @@ msgid ""
 "Please, define one in working shift configuration."
 msgstr "No se ha definido la secuencia para los turnos de trabajo."
 
+msgctxt "error:working_shift:"
+msgid "Working Shift \"%s\" can not be deleted because it is not in draft state."
+msgstr ""
+"El turno de trabajo \"%s\" no se puede eliminar porque no está en estado "
+"borrador."
+
 msgctxt "field:working_shift,code:"
 msgid "Code"
 msgstr "Código"
+
+msgctxt "field:working_shift,comment:"
+msgid "Comment"
+msgstr "Observaciones"
 
 msgctxt "field:working_shift,create_date:"
 msgid "Create Date"

@@ -18,7 +18,8 @@ class Intervention(ModelSQL, ModelView):
     __name__ = 'working_shift.intervention'
     code = fields.Char('Code', required=True, readonly=True)
     shift = fields.Many2One('working_shift', 'Working Shift',
-        required=True, states=STATES, depends=DEPENDS)
+        required=True, select=True, ondelete='CASCADE', states=STATES,
+        depends=DEPENDS)
     shift_state = fields.Function(fields.Selection([], 'Shift State'),
         'on_change_with_shift_state')
     reference = fields.Char('Reference', states=STATES, depends=DEPENDS)

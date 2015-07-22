@@ -34,9 +34,19 @@ msgstr ""
 "No s'ha definit cap seqüència de torn de treball.\n"
 "Si us plau, defineixi una en la configuració de torns de treball."
 
+msgctxt "error:working_shift:"
+msgid "Working Shift \"%s\" can not be deleted because it is not in draft state."
+msgstr ""
+"El torn de treball \"%s\" no es pot eliminar perquè no està en estat "
+"borrador."
+
 msgctxt "field:working_shift,code:"
 msgid "Code"
 msgstr "Codi"
+
+msgctxt "field:working_shift,comment:"
+msgid "Comment"
+msgstr "Observacions"
 
 msgctxt "field:working_shift,create_date:"
 msgid "Create Date"
