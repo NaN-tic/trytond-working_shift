@@ -147,3 +147,4 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         for working_shift in working_shifts:
             if working_shift.state != 'draft':
                 cls.raise_user_error('delete_non_draft', working_shift.rec_name)
+        super(WorkingShift, cls).delete(working_shifts)
