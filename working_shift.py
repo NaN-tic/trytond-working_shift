@@ -101,7 +101,8 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         if not self.start_date or not self.end_date:
             return Decimal(0)
         hours = (self.end_date - self.start_date).total_seconds() / 3600.0
-        return Decimal('{:.2}'.format(hours))
+        digits = self.__class__.hours.digits
+        return Decimal(str(hours)).quantize(Decimal(str(10 ** -digits[1])))
 
     @classmethod
     @ModelView.button
