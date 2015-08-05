@@ -67,11 +67,12 @@ class Intervention(ModelSQL, ModelView):
             ('reference',) + tuple(clause[1:]),
             ]
 
-    @fields.depends('shift')
+    @fields.depends('shift', '_parent_shift.state')
     def on_change_with_shift_state(self, name=None):
         if self.shift:
             return self.shift.state
-        # To allow to change the shift of intervention (to fix errors in imputation)
+        # To allow to change the shift of intervention (to fix errors in
+        # imputation)
         return 'draft'
 
     @classmethod
