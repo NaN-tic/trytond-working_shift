@@ -8,4 +8,8 @@
     <field name="end_date"/>
     <field name="hours"/>
     <field name="state"/>
+    <button string="Cancel" name="cancel" tree_invisible="1"/>
+    <button string="Draft" name="draft" tree_invisible="1"/>
+    <button string="Confirm" name="confirm" tree_invisible="1"/>
+    <button string="Done" name="done" tree_invisible="1"/>
 </tree>
