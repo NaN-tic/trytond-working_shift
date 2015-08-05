@@ -71,6 +71,8 @@ class Intervention(ModelSQL, ModelView):
     def on_change_with_shift_state(self, name=None):
         if self.shift:
             return self.shift.state
+        # To allow to change the shift of intervention (to fix errors in imputation)
+        return 'draft'
 
     @classmethod
     def validate(cls, interventions):
