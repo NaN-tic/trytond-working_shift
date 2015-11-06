@@ -186,6 +186,10 @@ msgctxt "field:working_shift.intervention,end_date:"
 msgid "End Date"
 msgstr "Fecha final"
 
+msgctxt "field:working_shift.intervention,hours:"
+msgid "Hours"
+msgstr "Horas"
+
 msgctxt "field:working_shift.intervention,id:"
 msgid "ID"
 msgstr "Identificador"

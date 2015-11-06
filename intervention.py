@@ -1,5 +1,7 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
+from decimal import Decimal
+
 from trytond.model import ModelSQL, ModelView, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
@@ -35,6 +37,8 @@ class Intervention(ModelSQL, ModelView):
                 ],
             ],
         states=STATES, depends=DEPENDS+['start_date'])
+    hours = fields.Function(fields.Numeric('Hours', digits=(16, 2)),
+        'on_change_with_hours')
     comments = fields.Text('Comments', states=STATES, depends=DEPENDS)
 
     @classmethod
@@ -74,6 +78,14 @@ class Intervention(ModelSQL, ModelView):
         # To allow to change the shift of intervention (to fix errors in
         # imputation)
         return 'draft'
+
+    @fields.depends('start_date', 'end_date')
+    def on_change_with_hours(self, name=None):
+        if not self.start_date or not self.end_date:
+            return Decimal(0)
+        hours = (self.end_date - self.start_date).total_seconds() / 3600.0
+        digits = self.__class__.hours.digits
+        return Decimal(str(hours)).quantize(Decimal(str(10 ** -digits[1])))
 
     @classmethod
     def validate(cls, interventions):
