@@ -54,13 +54,14 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('confirmed', 'done'),
-                ('canceled', 'draft'),
                 ('draft', 'canceled'),
                 ('confirmed', 'canceled'),
+                ('done', 'canceled'),
+                ('canceled', 'draft'),
                 ))
         cls._buttons.update({
                 'cancel': {
-                    'invisible': Eval('state').in_(['canceled', 'done']),
+                    'invisible': Eval('state') == 'canceled',
                     'icon': 'tryton-cancel',
                     },
                 'draft': {
