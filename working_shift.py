@@ -145,6 +145,15 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         return super(WorkingShift, cls).create(vlist)
 
     @classmethod
+    def copy(cls, working_shifts, default=None):
+        if default is None:
+            default = {}
+        else:
+            default = default.copy()
+        default['code'] = None
+        return super(WorkingShift, cls).copy(working_shifts, default=default)
+
+    @classmethod
     def delete(cls, working_shifts):
         for working_shift in working_shifts:
             if working_shift.state != 'draft':
