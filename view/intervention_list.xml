@@ -6,8 +6,8 @@
     <field name="shift"/>
     <field name="reference"/>
     <field name="contact_name"/>
-    <field name="start_date"/>
-    <field name="end_date"/>
+    <field name="start"/>
+    <field name="end"/>
     <field name="hours"/>
     <field name="party"/>
 </tree>
