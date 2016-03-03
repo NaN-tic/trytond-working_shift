@@ -1,1 +1,4 @@
+* Renamed start_date and end_date to start and end
+
+Version 3.4.0 - 2015-11-09
 * Initial release

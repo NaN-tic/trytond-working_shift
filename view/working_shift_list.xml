@@ -4,8 +4,8 @@
 <tree string="Working Shifts">
     <field name="code"/>
     <field name="employee"/>
-    <field name="start_date"/>
-    <field name="end_date"/>
+    <field name="start"/>
+    <field name="end"/>
     <field name="hours"/>
     <field name="state"/>
     <button string="Cancel" name="cancel" tree_invisible="1"/>
