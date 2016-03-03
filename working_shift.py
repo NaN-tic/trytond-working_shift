@@ -1,6 +1,7 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
 import datetime
+from dateutil.relativedelta import relativedelta
 from decimal import Decimal
 
 from trytond import backend
@@ -27,6 +28,8 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         states=STATES, depends=DEPENDS)
     start = fields.DateTime('Start', required=True, states=STATES,
         depends=DEPENDS)
+    start_date = fields.Function(fields.Date('Start Date'),
+        'get_start_date', searcher='search_start_date')
     end = fields.DateTime('End', domain=[
             ['OR',
                 ('end', '=', None),
@@ -120,6 +123,60 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
     @staticmethod
     def default_employee():
         return Transaction().context.get('employee')
+
+    def get_start_date(self, name):
+        if self.start:
+            return self.start.date()
+
+    @classmethod
+    def search_start_date(cls, name, clause):
+        operator = clause[1]
+        if operator == '>':
+            return [
+                ('start', '>=',
+                    datetime.datetime.combine(
+                        clause[2] + relativedelta(days=1),
+                        datetime.time(0, 0))),
+                ]
+        elif operator == '>=':
+            return [
+                ('start', '>=',
+                    datetime.datetime.combine(clause[2], datetime.time(0, 0))),
+                ]
+        elif operator == '<':
+            return [
+                ('start', '<',
+                    datetime.datetime.combine(clause[2], datetime.time(0, 0))),
+                ]
+        elif operator == '<=':
+            return [
+                ('start', '<',
+                    datetime.datetime.combine(
+                        clause[2] + relativedelta(days=1),
+                        datetime.time(0, 0))),
+                ]
+        elif operator == '=':
+            return [
+                ('start', '>=',
+                    datetime.datetime.combine(clause[2], datetime.time(0, 0))),
+                ('start', '<',
+                    datetime.datetime.combine(
+                        clause[2] + relativedelta(days=1),
+                        datetime.time(0, 0))),
+                ]
+        elif operator == '!=':
+            return [
+                ['OR',
+                    ('start', '<',
+                        datetime.datetime.combine(
+                            clause[2], datetime.time(0, 0))),
+                    ('start', '>=',
+                        datetime.datetime.combine(
+                            clause[2] + relativedelta(days=1),
+                            datetime.time(0, 0))),
+                    ],
+                ]
+        raise NotImplementedError
 
     @fields.depends('start', 'end')
     def on_change_with_hours(self, name=None):
