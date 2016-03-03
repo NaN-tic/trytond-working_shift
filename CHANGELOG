@@ -1,3 +1,4 @@
+Version 3.4.1 - 2016-03-03
 * Add searchable functional field start_date
 * Renamed start_date and end_date to start and end
 
