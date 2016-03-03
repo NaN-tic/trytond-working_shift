@@ -8,6 +8,8 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 from trytond.transaction import Transaction
 
+from .working_shift import start_date_searcher
+
 __all__ = ['Intervention']
 __metaclass__ = PoolMeta
 
@@ -32,6 +34,8 @@ class Intervention(ModelSQL, ModelView):
         depends=DEPENDS)
     start = fields.DateTime('Start', required=True, states=STATES,
         depends=DEPENDS)
+    start_date = fields.Function(fields.Date('Start Date'),
+        'get_start_date', searcher='search_start_date')
     end = fields.DateTime('End', domain=[
             ['OR',
                 ('end', '=', None),
@@ -103,6 +107,14 @@ class Intervention(ModelSQL, ModelView):
         # To allow to change the shift of intervention (to fix errors in
         # imputation)
         return 'draft'
+
+    def get_start_date(self, name):
+        if self.start:
+            return self.start.date()
+
+    @classmethod
+    def search_start_date(cls, name, clause):
+        return start_date_searcher(name, clause)
 
     @fields.depends('start', 'end')
     def on_change_with_hours(self, name=None):

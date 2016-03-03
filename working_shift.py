@@ -19,6 +19,56 @@ STATES = {
 DEPENDS = ['state']
 
 
+def start_date_searcher(name, clause):
+    operator = clause[1]
+    if operator == '>':
+        return [
+            ('start', '>=',
+                datetime.datetime.combine(
+                    clause[2] + relativedelta(days=1),
+                    datetime.time(0, 0))),
+            ]
+    elif operator == '>=':
+        return [
+            ('start', '>=',
+                datetime.datetime.combine(clause[2], datetime.time(0, 0))),
+            ]
+    elif operator == '<':
+        return [
+            ('start', '<',
+                datetime.datetime.combine(clause[2], datetime.time(0, 0))),
+            ]
+    elif operator == '<=':
+        return [
+            ('start', '<',
+                datetime.datetime.combine(
+                    clause[2] + relativedelta(days=1),
+                    datetime.time(0, 0))),
+            ]
+    elif operator == '=':
+        return [
+            ('start', '>=',
+                datetime.datetime.combine(clause[2], datetime.time(0, 0))),
+            ('start', '<',
+                datetime.datetime.combine(
+                    clause[2] + relativedelta(days=1),
+                    datetime.time(0, 0))),
+            ]
+    elif operator == '!=':
+        return [
+            ['OR',
+                ('start', '<',
+                    datetime.datetime.combine(
+                        clause[2], datetime.time(0, 0))),
+                ('start', '>=',
+                    datetime.datetime.combine(
+                        clause[2] + relativedelta(days=1),
+                        datetime.time(0, 0))),
+                ],
+            ]
+    raise NotImplementedError
+
+
 class WorkingShift(Workflow, ModelSQL, ModelView):
     'Working Shift'
     __name__ = 'working_shift'
@@ -130,53 +180,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
 
     @classmethod
     def search_start_date(cls, name, clause):
-        operator = clause[1]
-        if operator == '>':
-            return [
-                ('start', '>=',
-                    datetime.datetime.combine(
-                        clause[2] + relativedelta(days=1),
-                        datetime.time(0, 0))),
-                ]
-        elif operator == '>=':
-            return [
-                ('start', '>=',
-                    datetime.datetime.combine(clause[2], datetime.time(0, 0))),
-                ]
-        elif operator == '<':
-            return [
-                ('start', '<',
-                    datetime.datetime.combine(clause[2], datetime.time(0, 0))),
-                ]
-        elif operator == '<=':
-            return [
-                ('start', '<',
-                    datetime.datetime.combine(
-                        clause[2] + relativedelta(days=1),
-                        datetime.time(0, 0))),
-                ]
-        elif operator == '=':
-            return [
-                ('start', '>=',
-                    datetime.datetime.combine(clause[2], datetime.time(0, 0))),
-                ('start', '<',
-                    datetime.datetime.combine(
-                        clause[2] + relativedelta(days=1),
-                        datetime.time(0, 0))),
-                ]
-        elif operator == '!=':
-            return [
-                ['OR',
-                    ('start', '<',
-                        datetime.datetime.combine(
-                            clause[2], datetime.time(0, 0))),
-                    ('start', '>=',
-                        datetime.datetime.combine(
-                            clause[2] + relativedelta(days=1),
-                            datetime.time(0, 0))),
-                    ],
-                ]
-        raise NotImplementedError
+        return start_date_searcher(name, clause)
 
     @fields.depends('start', 'end')
     def on_change_with_hours(self, name=None):
