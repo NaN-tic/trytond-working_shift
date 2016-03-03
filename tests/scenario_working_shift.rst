@@ -96,10 +96,10 @@ Create working shift::
     >>> shift = Shift()
     >>> shift.employee == employee
     True
-    >>> shift.end_date = shift.start_date + relativedelta(days=1)
+    >>> shift.end = shift.start + relativedelta(days=1)
     >>> intervention = shift.interventions.new()
-    >>> intervention.start_date = now + relativedelta(minutes=1)
-    >>> intervention.end_date = now + relativedelta(hours=1)
+    >>> intervention.start = now + relativedelta(minutes=1)
+    >>> intervention.end = now + relativedelta(hours=1)
     >>> shift.save()
 
 A confirmed intervention can not be deleted::
@@ -117,9 +117,9 @@ Create an invalid intervention::
     >>> shift.click('cancel')
     >>> shift.click('draft')
     >>> invalid_intervention = shift.interventions.new()
-    >>> invalid_intervention.start_date = now + relativedelta(days=2,
+    >>> invalid_intervention.start = now + relativedelta(days=2,
     ...     minutes=1)
-    >>> invalid_intervention.end_date = now + relativedelta(days=2,
+    >>> invalid_intervention.end = now + relativedelta(days=2,
     ...     hours=1)
     >>> shift.save()
     Traceback (most recent call last):

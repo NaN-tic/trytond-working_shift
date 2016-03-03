@@ -14,10 +14,10 @@
     <field name="party"/>
     <label name="contact_name"/>
     <field name="contact_name"/>
-    <label name="start_date"/>
-    <field name="start_date"/>
-    <label name="end_date"/>
-    <field name="end_date"/>
+    <label name="start"/>
+    <field name="start"/>
+    <label name="end"/>
+    <field name="end"/>
     <separator name="comments" colspan="4"/>
     <field name="comments" colspan="4"/>
 </form>
