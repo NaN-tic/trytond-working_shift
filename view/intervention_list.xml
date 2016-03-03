@@ -7,6 +7,7 @@
     <field name="reference"/>
     <field name="contact_name"/>
     <field name="start"/>
+    <field name="start_date" tree_invisible="1"/>
     <field name="end"/>
     <field name="hours"/>
     <field name="party"/>
