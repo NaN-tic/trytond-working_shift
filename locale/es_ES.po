@@ -58,10 +58,6 @@ msgctxt "field:working_shift,employee:"
 msgid "Employee"
 msgstr "Empleado"
 
-msgctxt "field:working_shift,end_date:"
-msgid "End Date"
-msgstr "Fecha final"
-
 msgctxt "field:working_shift,hours:"
 msgid "Hours"
 msgstr "Horas"
@@ -181,10 +177,6 @@ msgstr "Fecha creación"
 msgctxt "field:working_shift.intervention,create_uid:"
 msgid "Create User"
 msgstr "Usuario creación"
-
-msgctxt "field:working_shift.intervention,end_date:"
-msgid "End Date"
-msgstr "Fecha final"
 
 msgctxt "field:working_shift.intervention,hours:"
 msgid "Hours"
