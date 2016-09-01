@@ -87,6 +87,13 @@
             <field name="perm_create" eval="True"/>
             <field name="perm_delete" eval="True"/>
         </record>
+        <record model="ir.model.access" id="access_working_shift_default">
+            <field name="model" search="[('model', '=', 'working_shift')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_delete" eval="True"/>
+        </record>
 
         <record model="ir.model.access" id="access_working_shift_admin">
             <field name="model" search="[('model', '=', 'working_shift')]"/>
