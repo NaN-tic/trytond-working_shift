@@ -142,11 +142,11 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
     @classmethod
     def __register__(cls, module_name):
         TableHandler = backend.get('TableHandler')
-        cursor = Transaction().cursor
+        cursor = Transaction().connection.cursor()
         sql_table = cls.__table__()
 
         # Migration from 3.4.0: renamed start/end_date to start/end
-        table = TableHandler(cursor, cls, module_name)
+        table = TableHandler(cls, module_name)
         start_end_date_exist = (table.column_exist('start_date')
             and table.column_exist('end_date'))
 
@@ -157,7 +157,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
             cursor.execute(*sql_table.update(
                     columns=[sql_table.start, sql_table.end],
                     values=[sql_table.start_date, sql_table.end_date]))
-            table = TableHandler(cursor, cls, module_name)
+            table = TableHandler(cls, module_name)
             table.not_null_action('start', action='add')
             table.drop_column('start_date')
             table.drop_column('end_date')
