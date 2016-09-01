@@ -4,9 +4,11 @@
 <tree string="Working Shifts">
     <field name="code"/>
     <field name="employee"/>
-    <field name="start"/>
+    <field name="start" widget="date"/>
+    <field name="start" widget="time" string="Time"/>
     <field name="start_date" tree_invisible="1"/>
-    <field name="end"/>
+    <field name="end" widget="date"/>
+    <field name="end" widget="time" string="Time"/>
     <field name="hours"/>
     <field name="state"/>
     <button string="Cancel" name="cancel" tree_invisible="1"/>
