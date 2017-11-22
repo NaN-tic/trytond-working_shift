@@ -136,7 +136,7 @@ class Intervention(ModelSQL, ModelView):
             error = True
         if self.shift.end:
             if (self.start >= self.shift.end
-                    or (self.end and self.end >= self.shift.end)):
+                    or (self.end and self.end > self.shift.end)):
                 error = True
         if self.end:
             if self.end <= self.shift.start:
