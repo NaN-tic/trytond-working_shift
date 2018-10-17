@@ -50,6 +50,8 @@ class Intervention(ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(Intervention, cls).__setup__()
+        cls._order.insert(0, ('code', 'DESC'))
+        cls._order.insert(1, ('id', 'DESC'))
         cls._error_messages.update({
                 'missing_intervention_sequence': ('There is no intervention'
                     ' sequence defined. Please define one in working shift '
