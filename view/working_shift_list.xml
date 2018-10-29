@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
-<tree string="Working Shifts">
+<tree>
     <field name="code"/>
     <field name="employee"/>
     <field name="start" widget="date"/>
@@ -11,8 +11,8 @@
     <field name="end" widget="time" string="Time"/>
     <field name="hours"/>
     <field name="state"/>
-    <button string="Cancel" name="cancel" tree_invisible="1"/>
-    <button string="Draft" name="draft" tree_invisible="1"/>
-    <button string="Confirm" name="confirm" tree_invisible="1"/>
-    <button string="Done" name="done" tree_invisible="1"/>
+    <button name="cancel" tree_invisible="1"/>
+    <button name="draft" tree_invisible="1"/>
+    <button name="confirm" tree_invisible="1"/>
+    <button name="done" tree_invisible="1"/>
 </tree>

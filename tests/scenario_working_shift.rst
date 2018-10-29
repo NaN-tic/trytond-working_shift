@@ -9,22 +9,15 @@ Imports::
     >>> from decimal import Decimal
     >>> from operator import attrgetter
     >>> from proteus import config, Model, Wizard
+    >>> from trytond.tests.tools import activate_modules, set_user
     >>> from trytond.modules.company.tests.tools import create_company, \
     ...     get_company
     >>> today = datetime.date.today()
     >>> now = datetime.datetime.now()
 
-Create database::
+Activate working_shift::
 
-    >>> config = config.set_trytond()
-    >>> config.pool.test = True
-
-Install working_shift::
-
-    >>> Module = Model.get('ir.module')
-    >>> module, = Module.find([('name', '=', 'working_shift')])
-    >>> module.click('install')
-    >>> Wizard('ir.module.install_upgrade').execute('upgrade')
+    >>> config = activate_modules('working_shift')
 
 Create company::
 
@@ -52,7 +45,7 @@ Create Employee::
     >>> user.employees.append(employee)
     >>> user.employee = employee
     >>> user.save()
-    >>> config._context = User.get_preferences(True, config.context)
+    >>> set_user(user)
 
 Configure sequences::
 
@@ -90,7 +83,7 @@ A confirmed intervention can not be deleted::
     >>> shift.click('confirm')
     >>> Intervention = Model.get('working_shift.intervention')
     >>> intervention, = Intervention.find([])
-    >>> intervention.delete()
+    >>> intervention.delete()   # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
         ...
     UserError: ('UserError', (u'Intervention "1" can not be deleted because its working shift is not in draft state.', ''))
@@ -104,7 +97,7 @@ Create an invalid intervention::
     ...     minutes=1)
     >>> invalid_intervention.end = now + relativedelta(days=2,
     ...     hours=1)
-    >>> shift.save()
+    >>> shift.save()   # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
         ...
     UserError: ('UserError', (u'Intervention\'s "2" period is outside working shift "1" period.', ''))

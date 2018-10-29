@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
-<form string="Working Shift" col="6">
+<form col="6">
     <label name="code"/>
     <field name="code"/>
     <label name="employee"/>
@@ -25,10 +25,10 @@
         <label name="state"/>
         <field name="state"/>
         <group col="5" colspan="2" id="buttons">
-            <button string="Cancel" name="cancel"/>
-            <button string="Draft" name="draft"/>
-            <button string="Confirm" name="confirm"/>
-            <button string="Done" name="done"/>
+            <button name="cancel"/>
+            <button name="draft"/>
+            <button name="confirm"/>
+            <button name="done"/>
         </group>
     </group>
 </form>
