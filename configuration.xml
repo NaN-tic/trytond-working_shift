@@ -52,7 +52,7 @@
 
         <menuitem id="menu_working_shift_configuration"
             action="act_working_shift_configuration_form"
-            icon="tryton-preferences"
+            icon="tryton-settings"
             parent="menu_configuration" sequence="0"/>
 
         <!-- Sequences -->

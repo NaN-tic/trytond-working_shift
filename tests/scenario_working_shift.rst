@@ -86,7 +86,7 @@ A confirmed intervention can not be deleted::
     >>> intervention.delete()   # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
         ...
-    UserError: ('UserError', (u'Intervention "1" can not be deleted because its working shift is not in draft state.', ''))
+    UserError: ('UserError', ('Intervention "1" can not be deleted because its working shift is not in draft state.', ''))
 
 Create an invalid intervention::
 
@@ -100,5 +100,5 @@ Create an invalid intervention::
     >>> shift.save()   # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
         ...
-    UserError: ('UserError', (u'Intervention\'s "2" period is outside working shift "1" period.', ''))
+    UserError: ('UserError', ('Intervention\'s "2" period is outside working shift "1" period.', ''))
     >>> invalid_intervention.delete()
