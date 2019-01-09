@@ -7,6 +7,8 @@ from trytond.model import ModelSQL, ModelView, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 from trytond.transaction import Transaction
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 from .working_shift import start_date_searcher
 
@@ -52,16 +54,6 @@ class Intervention(ModelSQL, ModelView):
         super(Intervention, cls).__setup__()
         cls._order.insert(0, ('code', 'DESC'))
         cls._order.insert(1, ('id', 'DESC'))
-        cls._error_messages.update({
-                'missing_intervention_sequence': ('There is no intervention'
-                    ' sequence defined. Please define one in working shift '
-                    'configuration.'),
-                'date_outside_working_shift': ('Intervention\'s '
-                    '"%(intervention)s" period is outside working shift '
-                    '"%(shift)s" period.'),
-                'delete_non_draft': ('Intervention "%s" can not be deleted '
-                    'because its working shift is not in draft state.'),
-                })
         # Copy selection from shift
         Shift = Pool().get('working_shift')
         cls.shift_state.selection = Shift.state.selection
@@ -145,10 +137,9 @@ class Intervention(ModelSQL, ModelView):
                 error = True
 
         if error:
-            self.raise_user_error('date_outside_working_shift', {
-                    'intervention': self.rec_name,
-                    'shift': self.shift.rec_name,
-                    })
+            raise UserError(gettext('working_shift.date_outside_working_shift',
+                    intervention=self.rec_name,
+                    shift=self.shift.rec_name))
 
     @classmethod
     def create(cls, vlist):
@@ -158,7 +149,8 @@ class Intervention(ModelSQL, ModelView):
 
         config = Config(1)
         if not config.intervention_sequence:
-            cls.raise_user_error('missing_intervention_sequence')
+            raise UserError(gettext(
+                'working_shift.missing_intervention_sequence'))
         for value in vlist:
             if value.get('code'):
                 continue
@@ -169,5 +161,7 @@ class Intervention(ModelSQL, ModelView):
     def delete(cls, interventions):
         for intervention in interventions:
             if intervention.shift.state != 'draft':
-                cls.raise_user_error('delete_non_draft', intervention.rec_name)
+                raise UserError(gettext(
+                    'working_shift.delete_non_draft_intervention',
+                    intervention=intervention.rec_name))
         super(Intervention, cls).delete(interventions)

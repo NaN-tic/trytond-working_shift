@@ -9,6 +9,8 @@ from trytond.model import Workflow, ModelSQL, ModelView, fields
 from trytond.pyson import Eval
 from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 __all__ = ['WorkingShift']
 __metaclass__ = PoolMeta
@@ -133,13 +135,6 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
                     'icon': 'tryton-ok',
                     },
                 })
-        cls._error_messages.update({
-                'missing_working_shift_sequence': (
-                    'There is no working shift sequence defined.\n'
-                    'Please, define one in working shift configuration.'),
-                'delete_non_draft': ('Working Shift "%s" can not be deleted '
-                    'because it is not in draft state.'),
-                })
 
     @classmethod
     def __register__(cls, module_name):
@@ -224,7 +219,8 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
 
         config = Config(1)
         if not config.working_shift_sequence:
-            cls.raise_user_error('missing_working_shift_sequence')
+            raise UserError(gettext(
+                'working_shift.missing_working_shift_sequence'))
         for value in vlist:
             if value.get('code'):
                 continue
@@ -244,6 +240,6 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
     def delete(cls, working_shifts):
         for working_shift in working_shifts:
             if working_shift.state != 'draft':
-                cls.raise_user_error('delete_non_draft',
-                    working_shift.rec_name)
+                raise UserError(gettext('working_shift.delete_non_draft',
+                    ws=working_shift.rec_name))
         super(WorkingShift, cls).delete(working_shifts)
