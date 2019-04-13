@@ -10,20 +10,12 @@
             <field name="user" ref="res.user_admin"/>
             <field name="group" ref="group_working_shift_admin"/>
         </record>
-        <record model="res.user-res.group" id="user_trigger_group_working_shift_admin">
-            <field name="user" ref="res.user_trigger"/>
-            <field name="group" ref="group_working_shift_admin"/>
-        </record>
 
         <record model="res.group" id="group_working_shift">
             <field name="name">Working Shifts</field>
         </record>
         <record model="res.user-res.group" id="user_admin_group_working_shift">
             <field name="user" ref="res.user_admin"/>
-            <field name="group" ref="group_working_shift"/>
-        </record>
-        <record model="res.user-res.group" id="user_trigger_group_working_shift">
-            <field name="user" ref="res.user_trigger"/>
             <field name="group" ref="group_working_shift"/>
         </record>
 
