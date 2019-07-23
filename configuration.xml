@@ -60,13 +60,11 @@
             <field name="name">Working Shift</field>
             <field name="code">working_shift</field>
         </record>
-        <record model="ir.sequence.type-res.group"
-                id="sequence_type_intervention_admin">
+        <record model="ir.sequence.type-res.group" id="sequence_type_working_shift_admin">
             <field name="sequence_type" ref="sequence_type_working_shift"/>
             <field name="group" ref="res.group_admin"/>
         </record>
-        <record model="ir.sequence.type-res.group"
-                id="sequence_type_intervention_working_shift_admin">
+        <record model="ir.sequence.type-res.group" id="sequence_type_working_shift_working_shift_admin">
             <field name="sequence_type" ref="sequence_type_working_shift"/>
             <field name="group" ref="group_working_shift_admin"/>
         </record>
@@ -74,26 +72,6 @@
         <record model="ir.sequence" id="sequence_working_shift">
             <field name="name">Working Shift</field>
             <field name="code">working_shift</field>
-        </record>
-
-        <record model="ir.sequence.type" id="sequence_type_intervention">
-            <field name="name">Working Shift Intervention</field>
-            <field name="code">working_shift.intervention</field>
-        </record>
-        <record model="ir.sequence.type-res.group"
-                id="sequence_type_intervention_group_admin">
-            <field name="sequence_type" ref="sequence_type_intervention"/>
-            <field name="group" ref="res.group_admin"/>
-        </record>
-        <record model="ir.sequence.type-res.group"
-            id="sequence_type_intervention_group_working_shift_admin">
-            <field name="sequence_type" ref="sequence_type_intervention"/>
-            <field name="group" ref="group_working_shift_admin"/>
-        </record>
-
-        <record model="ir.sequence" id="sequence_intervention">
-            <field name="name">Working Shift Intervention</field>
-            <field name="code">working_shift.intervention</field>
         </record>
     </data>
 </tryton>

@@ -14,9 +14,6 @@
     <label name="hours"/>
     <field name="hours"/>
     <notebook colspan="6">
-        <page name="interventions">
-            <field name="interventions" colspan="4"/>
-        </page>
         <page name="comment">
             <field name="comment" colspan="4"/>
         </page>

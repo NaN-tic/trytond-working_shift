@@ -9,7 +9,7 @@
     <field name="start_date" tree_invisible="1"/>
     <field name="end" widget="date"/>
     <field name="end" widget="time" string="Time"/>
-    <field name="hours"/>
+    <field name="hours" sum="Hours"/>
     <field name="state"/>
     <button string="Cancel" name="cancel" tree_invisible="1"/>
     <button string="Draft" name="draft" tree_invisible="1"/>

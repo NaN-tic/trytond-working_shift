@@ -12,14 +12,6 @@ __metaclass__ = PoolMeta
 class WorkingShiftConfiguration(ModelSingleton, ModelSQL, ModelView):
     'Working Shift Configuration'
     __name__ = 'working_shift.configuration'
-    intervention_sequence = fields.Function(fields.Many2One('ir.sequence',
-            'Intervention Sequence',
-            domain=[
-                ('company', 'in',
-                    [Eval('context', {}).get('company', -1), None]),
-                ('code', '=', 'working_shift.intervention'),
-                ]),
-        'get_company_config', 'set_company_config')
     working_shift_sequence = fields.Function(fields.Many2One('ir.sequence',
             'Working Shift Sequence',
             domain=[
@@ -73,13 +65,6 @@ class WorkingShiftConfigurationCompany(ModelSQL):
     __name__ = 'working_shift.configuration.company'
     company = fields.Many2One('company.company', 'Company', required=True,
         ondelete='CASCADE', select=True)
-    intervention_sequence = fields.Many2One('ir.sequence',
-        'Intervention Sequence',
-        domain=[
-            ('company', 'in',
-                [Eval('context', {}).get('company', -1), None]),
-            ('code', '=', 'working_shift.intervention'),
-            ])
     working_shift_sequence = fields.Many2One('ir.sequence',
         'Working Shift Sequence',
         domain=[

@@ -22,8 +22,8 @@ Create database::
 Install working_shift::
 
     >>> Module = Model.get('ir.module')
-    >>> module, = Module.find([('name', '=', 'working_shift')])
-    >>> module.click('install')
+    >>> working_shift_module, = Module.find([('name', '=', 'working_shift')])
+    >>> working_shift_module.click('install')
     >>> Wizard('ir.module.install_upgrade').execute('upgrade')
 
 Create company::
@@ -48,9 +48,11 @@ Create Employee::
     >>> employee.party = party
     >>> employee.company = company
     >>> employee.save()
+    >>> import pdb;pdb.set_trace()
     >>> user, = User.find([])
     >>> user.employees.append(employee)
     >>> user.employee = employee
+    >>> user.company = company
     >>> user.save()
     >>> config._context = User.get_preferences(True, config.context)
 
@@ -59,9 +61,6 @@ Configure sequences::
     >>> WorkingShiftConfig = Model.get('working_shift.configuration')
     >>> Sequence = Model.get('ir.sequence')
     >>> working_shift_config = WorkingShiftConfig(1)
-    >>> intervention_sequence, = Sequence.find([
-    ...     ('code', '=', 'working_shift.intervention')])
-    >>> working_shift_config.intervention_sequence = intervention_sequence
     >>> working_shift_sequence, = Sequence.find([
     ...     ('code', '=', 'working_shift')])
     >>> working_shift_config.working_shift_sequence = working_shift_sequence
@@ -80,32 +79,5 @@ Create working shift::
     >>> shift.employee == employee
     True
     >>> shift.end = shift.start + relativedelta(days=1)
-    >>> intervention = shift.interventions.new()
-    >>> intervention.start = now + relativedelta(minutes=1)
-    >>> intervention.end = now + relativedelta(hours=1)
     >>> shift.save()
-
-A confirmed intervention can not be deleted::
-
     >>> shift.click('confirm')
-    >>> Intervention = Model.get('working_shift.intervention')
-    >>> intervention, = Intervention.find([])
-    >>> intervention.delete()
-    Traceback (most recent call last):
-        ...
-    UserError: ('UserError', (u'Intervention "1" can not be deleted because its working shift is not in draft state.', ''))
-
-Create an invalid intervention::
-
-    >>> shift.click('cancel')
-    >>> shift.click('draft')
-    >>> invalid_intervention = shift.interventions.new()
-    >>> invalid_intervention.start = now + relativedelta(days=2,
-    ...     minutes=1)
-    >>> invalid_intervention.end = now + relativedelta(days=2,
-    ...     hours=1)
-    >>> shift.save()
-    Traceback (most recent call last):
-        ...
-    UserError: ('UserError', (u'Intervention\'s "2" period is outside working shift "1" period.', ''))
-    >>> invalid_intervention.delete()
