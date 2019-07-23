@@ -10,10 +10,6 @@
             <field name="user" ref="res.user_admin"/>
             <field name="group" ref="group_working_shift_admin"/>
         </record>
-        <record model="res.user-res.group" id="user_trigger_group_working_shift_admin">
-            <field name="user" ref="res.user_trigger"/>
-            <field name="group" ref="group_working_shift_admin"/>
-        </record>
 
         <record model="res.group" id="group_working_shift">
             <field name="name">Working Shifts</field>
@@ -22,10 +18,8 @@
             <field name="user" ref="res.user_admin"/>
             <field name="group" ref="group_working_shift"/>
         </record>
-        <record model="res.user-res.group" id="user_trigger_group_working_shift">
-            <field name="user" ref="res.user_trigger"/>
-            <field name="group" ref="group_working_shift"/>
-        </record>
+
+        <menuitem id="menu_working_shift" name="Working Shifts" sequence="6"/>
 
         <!-- working_shift -->
         <record model="ir.ui.view" id="working_shift_view_form">
@@ -33,7 +27,6 @@
             <field name="type">form</field>
             <field name="name">working_shift_form</field>
         </record>
-
         <record model="ir.ui.view" id="working_shift_view_list">
             <field name="model">working_shift</field>
             <field name="type">tree</field>
@@ -43,6 +36,9 @@
         <record model="ir.action.act_window" id="act_working_shift">
             <field name="name">Working Shifts</field>
             <field name="res_model">working_shift</field>
+            <field name="search_value"
+                eval="[('start', '>=', DateTime(hour=0, minute=0, second=0, microsecond=0, delta_years=0))]"
+                pyson="1"/>
         </record>
         <record model="ir.action.act_window.view" id="act_working_shift_view1">
             <field name="sequence" eval="10"/>
@@ -54,8 +50,7 @@
             <field name="view" ref="working_shift_view_form"/>
             <field name="act_window" ref="act_working_shift"/>
         </record>
-        <record model="ir.action.act_window.domain"
-                id="act_working_shift_domain_draft">
+        <record model="ir.action.act_window.domain" id="act_working_shift_domain_draft">
             <field name="name">Draft</field>
             <field name="sequence" eval="10"/>
             <field name="domain"
@@ -63,8 +58,7 @@
                 pyson="1"/>
             <field name="act_window" ref="act_working_shift"/>
         </record>
-        <record model="ir.action.act_window.domain"
-                id="act_working_shift_domain_confirmed">
+        <record model="ir.action.act_window.domain" id="act_working_shift_domain_confirmed">
             <field name="name">Confirmed</field>
             <field name="sequence" eval="20"/>
             <field name="domain"
@@ -72,13 +66,70 @@
                 pyson="1"/>
             <field name="act_window" ref="act_working_shift"/>
         </record>
-        <record model="ir.action.act_window.domain"
-                id="act_working_shift_domain_all">
+        <record model="ir.action.act_window.domain" id="act_working_shift_domain_all">
             <field name="name">All</field>
             <field name="sequence" eval="9999"/>
             <field name="act_window" ref="act_working_shift"/>
         </record>
 
+        <menuitem id="menu_working_shift_form" action="act_working_shift"
+            parent="menu_working_shift" sequence="10"/>
+        <record model="ir.ui.menu-res.group" id="menu_working_shift_group_working_shift">
+            <field name="menu" ref="menu_working_shift_form"/>
+            <field name="group" ref="group_working_shift"/>
+        </record>
+        <record model="ir.ui.menu-res.group" id="menu_working_shift_group_working_shift_admin">
+            <field name="menu" ref="menu_working_shift_form"/>
+            <field name="group" ref="group_working_shift_admin"/>
+        </record>
+
+        <!-- by employee -->
+        <record model="ir.action.act_window" id="act_working_shift_employee">
+            <field name="name">Working Shifts by Employee</field>
+            <field name="res_model">working_shift</field>
+            <field name="domain"
+                eval="[('employee.id', '=', Eval('context', {}).get('employee', -1))]"
+                pyson="1"/>
+            <field name="search_value"
+                eval="[('start', '>=', DateTime(hour=0, minute=0, second=0, microsecond=0, delta_years=0))]"
+                pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_working_shift_employee_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="working_shift_view_list"/>
+            <field name="act_window" ref="act_working_shift_employee"/>
+        </record>
+        <record model="ir.action.act_window.view" id="act_working_shift_employee_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="working_shift_view_form"/>
+            <field name="act_window" ref="act_working_shift_employee"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_working_shift_employee_domain_draft">
+            <field name="name">Draft</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain"
+                eval="[('state', '=', 'draft')]"
+                pyson="1"/>
+            <field name="act_window" ref="act_working_shift_employee"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_working_shift_employee_domain_confirmed">
+            <field name="name">Confirmed</field>
+            <field name="sequence" eval="20"/>
+            <field name="domain"
+                eval="[('state', '=', 'confirmed')]"
+                pyson="1"/>
+            <field name="act_window" ref="act_working_shift_employee"/>
+        </record>
+        <record model="ir.action.act_window.domain" id="act_working_shift_employee_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="9999"/>
+            <field name="act_window" ref="act_working_shift_employee"/>
+        </record>
+
+        <menuitem id="menu_working_shift_employee_form" action="act_working_shift_employee"
+            parent="menu_working_shift" sequence="10"/>
+
+        <!-- access -->
         <record model="ir.model.access" id="access_working_shift">
             <field name="model" search="[('model', '=', 'working_shift')]"/>
             <field name="group" ref="group_working_shift"/>
@@ -104,23 +155,21 @@
             <field name="perm_delete" eval="True"/>
         </record>
 
+        <!-- buttons -->
         <record model="ir.model.button" id="working_shift_cancel_button">
             <field name="name">cancel</field>
             <field name="string">Cancel</field>
             <field name="model" search="[('model', '=', 'working_shift')]"/>
-        </record>
-        <record model="ir.model.button-res.group" id="working_shift_cancel_button_group_working_shift">
-            <field name="button" ref="working_shift_cancel_button"/>
-            <field name="group" ref="group_working_shift"/>
         </record>
         <record model="ir.model.button" id="working_shift_draft_button">
             <field name="name">draft</field>
             <field name="string">Draft</field>
             <field name="model" search="[('model', '=', 'working_shift')]"/>
         </record>
-        <record model="ir.model.button-res.group" id="working_shift_draft_button_group_working_shift">
-            <field name="button" ref="working_shift_draft_button"/>
-            <field name="group" ref="group_working_shift"/>
+        <record model="ir.model.button" id="working_shift_confirm_button">
+            <field name="name">confirm</field>
+            <field name="string">Confirm</field>
+            <field name="model" search="[('model', '=', 'working_shift')]"/>
         </record>
         <record model="ir.model.button" id="working_shift_done_button">
             <field name="name">done</field>
@@ -131,30 +180,18 @@
             <field name="button" ref="working_shift_done_button"/>
             <field name="group" ref="group_working_shift"/>
         </record>
-        <record model="ir.model.button" id="working_shift_confirm_button">
-            <field name="name">confirm</field>
-            <field name="string">Confirm</field>
-            <field name="model" search="[('model', '=', 'working_shift')]"/>
-        </record>
-        <record model="ir.model.button-res.group" id="working_shift_confirm_button_group_working_shift">
-            <field name="button" ref="working_shift_confirm_button"/>
-            <field name="group" ref="group_working_shift"/>
-        </record>
 
-        <!-- Menus -->
-        <menuitem id="menu_working_shift" name="Working Shifts" sequence="6" />
-        <record model="ir.ui.menu-res.group"
-                id="menu_working_shift_group_working_shift">
-            <field name="menu" ref="menu_working_shift"/>
-            <field name="group" ref="group_working_shift"/>
+        <!-- wizard start working shift -->
+        <record model="ir.ui.view" id="employee_working_shift_start_view_form">
+            <field name="model">employee.working_shift.start</field>
+            <field name="type">form</field>
+            <field name="name">employee_working_shift_start_form</field>
         </record>
-        <record model="ir.ui.menu-res.group"
-                id="menu_working_shift_group_working_shift_admin">
-            <field name="menu" ref="menu_working_shift"/>
-            <field name="group" ref="group_working_shift_admin"/>
+        <record model="ir.action.wizard" id="wizard_employee_working_shift_start">
+            <field name="name">Start/End</field>
+            <field name="wiz_name">employee.working_shift</field>
         </record>
-
-        <menuitem id="menu_working_shift_form" action="act_working_shift"
-            parent="menu_working_shift" sequence="10"/>
+        <menuitem id="menu_employee_working_shift_start"
+          action="wizard_employee_working_shift_start" parent="menu_working_shift"/>
     </data>
 </tryton>
