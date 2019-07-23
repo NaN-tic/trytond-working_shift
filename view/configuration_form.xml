@@ -4,6 +4,4 @@ this repository contains the full copyright notices and license terms. -->
 <form>
     <label name="working_shift_sequence"/>
     <field name="working_shift_sequence"/>
-    <label name="intervention_sequence"/>
-    <field name="intervention_sequence"/>
 </form>

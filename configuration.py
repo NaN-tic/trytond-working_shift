@@ -1,89 +1,56 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
-from trytond.model import Model, ModelSQL, ModelView, ModelSingleton, fields
+from trytond.model import ModelSQL, ModelView, ModelSingleton, fields
 from trytond.pyson import Eval
-from trytond.pool import Pool, PoolMeta
-from trytond.transaction import Transaction
+from trytond.pool import Pool
+from trytond.modules.company.model import (
+    CompanyMultiValueMixin, CompanyValueMixin)
 
-__all_ = ['WorkingShiftConfiguration', 'WorkingShiftConfigurationCompany']
-__metaclass__ = PoolMeta
+__all_ = ['Configuration', 'ConfigurationSequence']
 
-
-class WorkingShiftConfiguration(ModelSingleton, ModelSQL, ModelView):
-    'Working Shift Configuration'
-    __name__ = 'working_shift.configuration'
-    intervention_sequence = fields.Function(fields.Many2One('ir.sequence',
-            'Intervention Sequence',
-            domain=[
-                ('company', 'in',
-                    [Eval('context', {}).get('company', -1), None]),
-                ('code', '=', 'working_shift.intervention'),
-                ]),
-        'get_company_config', 'set_company_config')
-    working_shift_sequence = fields.Function(fields.Many2One('ir.sequence',
-            'Working Shift Sequence',
-            domain=[
-                ('company', 'in',
-                    [Eval('context', {}).get('company', -1), None]),
-                ('code', '=', 'working_shift'),
-                ]),
-        'get_company_config', 'set_company_config')
-
-    @classmethod
-    def get_company_config(cls, configs, names):
-        pool = Pool()
-        CompanyConfig = pool.get('working_shift.configuration.company')
-
-        company_id = Transaction().context.get('company')
-        company_configs = CompanyConfig.search([
-                ('company', '=', company_id),
-                ])
-
-        res = {}
-        for fname in names:
-            res[fname] = {
-                configs[0].id: None,
-                }
-            if company_configs:
-                val = getattr(company_configs[0], fname)
-                if isinstance(val, Model):
-                    val = val.id
-                res[fname][configs[0].id] = val
-        return res
-
-    @classmethod
-    def set_company_config(cls, configs, name, value):
-        pool = Pool()
-        CompanyConfig = pool.get('working_shift.configuration.company')
-
-        company_id = Transaction().context.get('company')
-        company_configs = CompanyConfig.search([
-                ('company', '=', company_id),
-                ])
-        if company_configs:
-            company_config = company_configs[0]
-        else:
-            company_config = CompanyConfig(company=company_id)
-        setattr(company_config, name, value)
-        company_config.save()
-
-
-class WorkingShiftConfigurationCompany(ModelSQL):
-    'Working Shift Configuration per Company'
-    __name__ = 'working_shift.configuration.company'
-    company = fields.Many2One('company.company', 'Company', required=True,
-        ondelete='CASCADE', select=True)
-    intervention_sequence = fields.Many2One('ir.sequence',
-        'Intervention Sequence',
-        domain=[
-            ('company', 'in',
-                [Eval('context', {}).get('company', -1), None]),
-            ('code', '=', 'working_shift.intervention'),
-            ])
-    working_shift_sequence = fields.Many2One('ir.sequence',
-        'Working Shift Sequence',
+working_shift_sequence = fields.Many2One(
+        'ir.sequence', "Working Shift Sequence", required=True,
         domain=[
             ('company', 'in',
                 [Eval('context', {}).get('company', -1), None]),
             ('code', '=', 'working_shift'),
             ])
+
+def default_func(field_name):
+    @classmethod
+    def default(cls, **pattern):
+        return getattr(
+            cls.multivalue_model(field_name),
+            'default_%s' % field_name, lambda: None)()
+    return default
+
+
+class Configuration(
+        ModelSingleton, ModelSQL, ModelView, CompanyMultiValueMixin):
+    'Working Shift Configuration'
+    __name__ = 'working_shift.configuration'
+    working_shift_sequence = fields.MultiValue(working_shift_sequence)
+
+    @classmethod
+    def multivalue_model(cls, field):
+        pool = Pool()
+        if field == 'working_shift_sequence':
+            return pool.get('working_shift.configuration.sequence')
+        return super(Configuration, cls).multivalue_model(field)
+
+    default_working_shift_sequence = default_func('working_shift_sequence')
+
+
+class ConfigurationSequence(ModelSQL, CompanyValueMixin):
+    "Working Shift Configuration Sequence"
+    __name__ = 'working_shift.configuration.sequence'
+    working_shift_sequence = working_shift_sequence
+
+    @classmethod
+    def default_working_shift_sequence(cls):
+        pool = Pool()
+        ModelData = pool.get('ir.model.data')
+        try:
+            return ModelData.get_id('working_shift', 'sequence_working_shift')
+        except KeyError:
+            return None

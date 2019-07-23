@@ -4,20 +4,10 @@ this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data group="1">
       <record model="ir.message" id="missing_working_shift_sequence">
-          <field name="text">There is no working shift sequence defined.\n Please, define one in working shift configuration.</field>
+          <field name="text">There is no working shift sequence defined. Please, define one in working shift configuration.</field>
       </record>
       <record model="ir.message" id="delete_non_draft">
           <field name="text">Working Shift "%(ws)s" can not be deleted because it is not in draft state.</field>
       </record>
-      <record model="ir.message" id="missing_intervention_sequence">
-          <field name="text">There is no intervention sequence defined. Please define one in working shift configuration.</field>
-      </record>
-      <record model="ir.message" id="date_outside_working_shift">
-          <field name="text">Intervention\'s "%(intervention)s" period is outside working shift "%(shift)s" period.</field>
-      </record>
-      <record model="ir.message" id="delete_non_draft_intervention">
-          <field name="text">Intervention "%(intervention)s" can not be deleted because its working shift is not in draft state.</field>
-      </record>
-
-</data>
+    </data>
 </tryton>
