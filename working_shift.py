@@ -91,7 +91,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
                 ],
             ],
         states={
-            'readonly': Eval('state') != 'draft',
+            'readonly': Eval('state').in_(['canceled', 'done']),
             'required': Eval('state').in_(['done']),
             }, depends=DEPENDS+['start'])
     hours = fields.Function(fields.Numeric('Hours', digits=(16, 2)),
