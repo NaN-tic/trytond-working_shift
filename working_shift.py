@@ -1,19 +1,21 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
 import datetime
+import pytz
 from dateutil.relativedelta import relativedelta
 from decimal import Decimal
 
 from trytond import backend
 from trytond.model import Workflow, ModelSQL, ModelView, fields
+from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.pyson import Eval
-from trytond.pool import Pool, PoolMeta
+from trytond.pool import Pool
 from trytond.transaction import Transaction
 from trytond.i18n import gettext
+from trytond.model.exceptions import AccessError
 from trytond.exceptions import UserError
 
-__all__ = ['WorkingShift']
-__metaclass__ = PoolMeta
+__all__ = ['WorkingShift', 'EmployeeWorkingShiftStart', 'EmployeeWorkingShift']
 
 STATES = {
     'readonly': Eval('state') != 'draft',
@@ -90,12 +92,10 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
             ],
         states={
             'readonly': Eval('state') != 'draft',
-            'required': Eval('state').in_(['confirmed', 'done']),
+            'required': Eval('state').in_(['done']),
             }, depends=DEPENDS+['start'])
     hours = fields.Function(fields.Numeric('Hours', digits=(16, 2)),
         'on_change_with_hours')
-    interventions = fields.One2Many('working_shift.intervention', 'shift',
-        'Interventions', states=STATES, depends=DEPENDS)
     comment = fields.Text('Comment')
     state = fields.Selection([
             ('draft', 'Draft'),
@@ -171,6 +171,35 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
     def default_employee():
         return Transaction().context.get('employee')
 
+    def get_rec_name(self, name):
+        Company = Pool().get('company.company')
+
+        locale = Transaction().context.get('locale')
+        dformat = '%Y/%m/%d %H:%M'
+        if locale:
+            dformat = locale.get('date', '%Y/%m/%d') + ' %H:%M'
+
+        start = self.start
+        end = self.end
+
+        company_id = Transaction().context.get('company')
+        if company_id:
+            company = Company(company_id)
+            if company.timezone:
+                timezone = pytz.timezone(company.timezone)
+                if self.start:
+                    start = timezone.localize(self.start)
+                    start = self.start + start.utcoffset()
+                if self.end:
+                    end = timezone.localize(self.end)
+                    end = self.end + end.utcoffset()
+
+        rec_name = '[%s] %s - %s' % (
+            self.code, self.employee.rec_name, start.strftime(dformat))
+        if end:
+            rec_name += ' - %s' % end.strftime(dformat)
+        return rec_name
+
     def get_start_date(self, name):
         if self.start:
             return self.start.date()
@@ -240,6 +269,87 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
     def delete(cls, working_shifts):
         for working_shift in working_shifts:
             if working_shift.state != 'draft':
-                raise UserError(gettext('working_shift.delete_non_draft',
+                raise AccessError(gettext('working_shift.delete_non_draft',
                     ws=working_shift.rec_name))
         super(WorkingShift, cls).delete(working_shifts)
+
+
+class EmployeeWorkingShiftStart(ModelView):
+    'Employee Working Shift Start'
+    __name__ = 'employee.working_shift.start'
+    working_shift = fields.Many2One('working_shift', 'Working Shift',
+        domain=[
+            ('employee', '=', Eval('employee', -1)),
+            ('state', 'in', ['draft', 'confirmed']),
+        ], depends=['employee'])
+    employee = fields.Many2One('company.employee', 'Employee', required=True,
+        readonly=True)
+    start = fields.DateTime('Start')
+    end = fields.DateTime('End')
+
+    @classmethod
+    def default_working_shift(cls):
+        pool = Pool()
+        WorkingShift = pool.get('working_shift')
+        Date = pool.get('ir.date')
+
+        start_date = datetime.datetime.combine(
+                    Date.today(),
+                    datetime.time(0, 0))
+        working_shifts = WorkingShift.search([
+                ('employee', '=', Transaction().context.get('employee', -1)),
+                ('state', 'in', ['draft', 'confirmed']),
+                ('start', '>=', start_date),
+                ('end', '=', None),
+            ], limit=1, order=[('start', 'ASC')])
+        if working_shifts:
+            return working_shifts[0].id
+
+    @staticmethod
+    def default_employee():
+        return Transaction().context.get('employee')
+
+    @fields.depends('working_shift')
+    def on_change_with_start(self):
+        return (self.working_shift.start
+            if self.working_shift else datetime.datetime.now())
+
+    @fields.depends('working_shift')
+    def on_change_with_end(self):
+        return (self.working_shift.end or datetime.datetime.now()
+            if self.working_shift else None)
+
+
+class EmployeeWorkingShift(Wizard):
+    'Employee Working Shift'
+    __name__ = 'employee.working_shift'
+    start = StateView('employee.working_shift.start',
+        'working_shift.employee_working_shift_start_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Done', 'set_working_shift', 'tryton-ok', default=True),
+            ])
+    set_working_shift = StateTransition()
+
+    def transition_set_working_shift(self):
+        WorkingShift = Pool().get('working_shift')
+
+        start = self.start.start
+        end = self.start.end
+
+        working_shift = self.start.working_shift
+        if self.start.working_shift:
+            working_shift = self.start.working_shift
+        else:
+            working_shift = WorkingShift()
+            working_shift.start = datetime.datetime.now()
+            working_shift.employee = self.start.employee
+        if start:
+            working_shift.start = start
+        if end:
+            working_shift.end = end
+        working_shift.save()
+        WorkingShift.confirm([working_shift])
+        return 'end'
+
+    def end(self):
+        return 'reload menu'

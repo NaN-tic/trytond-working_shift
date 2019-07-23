@@ -25,16 +25,11 @@ Create company::
     >>> company = get_company()
     >>> party = company.party
 
-Reload the context::
-
-    >>> User = Model.get('res.user')
-    >>> Group = Model.get('res.group')
-    >>> config._context = User.get_preferences(True, config.context)
-
 Create Employee::
 
     >>> Party = Model.get('party.party')
     >>> Employee = Model.get('company.employee')
+    >>> User = Model.get('res.user')
     >>> party = Party(name='Employee')
     >>> party.save()
     >>> employee = Employee()
@@ -52,9 +47,6 @@ Configure sequences::
     >>> WorkingShiftConfig = Model.get('working_shift.configuration')
     >>> Sequence = Model.get('ir.sequence')
     >>> working_shift_config = WorkingShiftConfig(1)
-    >>> intervention_sequence, = Sequence.find([
-    ...     ('code', '=', 'working_shift.intervention')])
-    >>> working_shift_config.intervention_sequence = intervention_sequence
     >>> working_shift_sequence, = Sequence.find([
     ...     ('code', '=', 'working_shift')])
     >>> working_shift_config.working_shift_sequence = working_shift_sequence
@@ -73,32 +65,5 @@ Create working shift::
     >>> shift.employee == employee
     True
     >>> shift.end = shift.start + relativedelta(days=1)
-    >>> intervention = shift.interventions.new()
-    >>> intervention.start = now + relativedelta(minutes=1)
-    >>> intervention.end = now + relativedelta(hours=1)
     >>> shift.save()
-
-A confirmed intervention can not be deleted::
-
     >>> shift.click('confirm')
-    >>> Intervention = Model.get('working_shift.intervention')
-    >>> intervention, = Intervention.find([])
-    >>> intervention.delete()   # doctest: +IGNORE_EXCEPTION_DETAIL
-    Traceback (most recent call last):
-        ...
-    UserError: ('UserError', ('Intervention "1" can not be deleted because its working shift is not in draft state.', ''))
-
-Create an invalid intervention::
-
-    >>> shift.click('cancel')
-    >>> shift.click('draft')
-    >>> invalid_intervention = shift.interventions.new()
-    >>> invalid_intervention.start = now + relativedelta(days=2,
-    ...     minutes=1)
-    >>> invalid_intervention.end = now + relativedelta(days=2,
-    ...     hours=1)
-    >>> shift.save()   # doctest: +IGNORE_EXCEPTION_DETAIL
-    Traceback (most recent call last):
-        ...
-    UserError: ('UserError', ('Intervention\'s "2" period is outside working shift "1" period.', ''))
-    >>> invalid_intervention.delete()
