@@ -2,7 +2,7 @@
 <!-- The COPYRIGHT file at the top level of this repository contains the full
      copyright notices and license terms. -->
 <form col="2">
-    <image name="tryton-dialog-information" xexpand="0" xfill="0"/>
+    <image name="tryton-info" xexpand="0" xfill="0"/>
     <label string="Start/End working shift" id="shift" yalign="0.0" xalign="0.0" xexpand="1"/>
     <field name="working_shift" invisible="1" colspan="6"/>
     <label name="start"/>
