@@ -128,7 +128,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
                     },
                 'confirm': {
                     'invisible': Eval('state') != 'draft',
-                    'icon': 'tryton-go-next',
+                    'icon': 'tryton-forward',
                     },
                 'done': {
                     'invisible': Eval('state') != 'confirmed',
