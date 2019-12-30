@@ -156,7 +156,7 @@ msgstr "Configuració torns de treball"
 
 msgctxt "model:ir.action,name:act_working_shift_employee"
 msgid "Working Shifts by Employee"
-msgstr "Meus torns de treball"
+msgstr "Els meus torns de treball"
 
 msgctxt "model:ir.action,name:wizard_employee_working_shift_start"
 msgid "Start/End"
