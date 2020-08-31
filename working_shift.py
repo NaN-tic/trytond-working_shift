@@ -91,7 +91,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
                 ],
             ],
         states={
-            'readonly': Eval('state').in_(['canceled', 'done']),
+            'readonly': Eval('state').in_(['cancelled', 'done']),
             'required': Eval('state').in_(['done']),
             }, depends=DEPENDS+['start'])
     hours = fields.Function(fields.Numeric('Hours', digits=(16, 2)),
@@ -101,7 +101,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
             ('draft', 'Draft'),
             ('confirmed', 'Confirmed'),
             ('done', 'Done'),
-            ('canceled', 'Cancelled'),
+            ('cancelled', "Cancelled"),
             ], 'State', required=True, readonly=True, select=True)
 
     @classmethod
@@ -112,14 +112,14 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         cls._transitions |= set((
                 ('draft', 'confirmed'),
                 ('confirmed', 'done'),
-                ('draft', 'canceled'),
-                ('confirmed', 'canceled'),
-                ('done', 'canceled'),
-                ('canceled', 'draft'),
+                ('draft', 'cancelled'),
+                ('confirmed', 'cancelled'),
+                ('done', 'cancelled'),
+                ('cancelled', 'draft'),
                 ))
         cls._buttons.update({
                 'cancel': {
-                    'invisible': Eval('state') == 'canceled',
+                    'invisible': Eval('state') == 'cancelled',
                     'icon': 'tryton-cancel',
                     },
                 'draft': {
@@ -157,6 +157,11 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
             table.not_null_action('start', action='add')
             table.drop_column('start_date')
             table.drop_column('end_date')
+
+        # Migration from 5.6: rename state canceled to cancelled
+        cursor.execute(*sql_table.update(
+                [sql_table.state], ['cancelled'],
+                where=sql_table.state == 'canceled'))
 
     @staticmethod
     def default_state():
@@ -217,7 +222,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
 
     @classmethod
     @ModelView.button
-    @Workflow.transition('canceled')
+    @Workflow.transition('cancelled')
     def cancel(cls, working_shifts):
         pass
 
