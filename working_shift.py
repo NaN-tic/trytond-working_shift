@@ -123,7 +123,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
                     'icon': 'tryton-cancel',
                     },
                 'draft': {
-                    'invisible': Eval('state') != 'canceled',
+                    'invisible': Eval('state') != 'cancelled',
                     'icon': 'tryton-clear',
                     },
                 'confirm': {
