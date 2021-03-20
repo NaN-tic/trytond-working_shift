@@ -37,7 +37,6 @@
         <!-- Sequences -->
         <record model="ir.sequence.type" id="sequence_type_working_shift">
             <field name="name">Working Shift</field>
-            <field name="code">working_shift</field>
         </record>
         <record model="ir.sequence.type-res.group" id="sequence_type_working_shift_admin">
             <field name="sequence_type" ref="sequence_type_working_shift"/>
@@ -50,7 +49,7 @@
 
         <record model="ir.sequence" id="sequence_working_shift">
             <field name="name">Working Shift</field>
-            <field name="code">working_shift</field>
+            <field name="sequence_type" ref="sequence_type_working_shift"/>
         </record>
     </data>
 </tryton>

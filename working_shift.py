@@ -247,7 +247,6 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
     @classmethod
     def create(cls, vlist):
         pool = Pool()
-        Sequence = pool.get('ir.sequence')
         Config = pool.get('working_shift.configuration')
 
         config = Config(1)
@@ -257,7 +256,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         for value in vlist:
             if value.get('code'):
                 continue
-            value['code'] = Sequence.get_id(config.working_shift_sequence.id)
+            value['code'] = config.working_shift_sequence.get()
         return super(WorkingShift, cls).create(vlist)
 
     @classmethod
