@@ -50,26 +50,32 @@ def start_date_searcher(name, clause):
                     datetime.time(0, 0))),
             ]
     elif operator == '=':
-        return [
-            ('start', '>=',
-                datetime.datetime.combine(clause[2], datetime.time(0, 0))),
-            ('start', '<',
-                datetime.datetime.combine(
-                    clause[2] + relativedelta(days=1),
-                    datetime.time(0, 0))),
-            ]
-    elif operator == '!=':
-        return [
-            ['OR',
-                ('start', '<',
-                    datetime.datetime.combine(
-                        clause[2], datetime.time(0, 0))),
+        if clause[2] is None:
+            return [('start', '=', None)]
+        else:
+            return [
                 ('start', '>=',
+                    datetime.datetime.combine(clause[2], datetime.time(0, 0))),
+                ('start', '<',
                     datetime.datetime.combine(
                         clause[2] + relativedelta(days=1),
                         datetime.time(0, 0))),
-                ],
-            ]
+                ]
+    elif operator == '!=':
+        if clause[2] is None:
+            return [('start', '!=', None)]
+        else:
+            return [
+                ['OR',
+                    ('start', '<',
+                        datetime.datetime.combine(
+                            clause[2], datetime.time(0, 0))),
+                    ('start', '>=',
+                        datetime.datetime.combine(
+                            clause[2] + relativedelta(days=1),
+                            datetime.time(0, 0))),
+                    ],
+                ]
     raise NotImplementedError
 
 
