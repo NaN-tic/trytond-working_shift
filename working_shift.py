@@ -33,21 +33,26 @@ def start_date_searcher(name, clause):
                     datetime.time(0, 0))),
             ]
     elif operator == '>=':
+        value = clause[2]
+        if value:
+            value = datetime.datetime.combine(value, datetime.time(0, 0))
         return [
-            ('start', '>=',
-                datetime.datetime.combine(clause[2], datetime.time(0, 0))),
+            ('start', '>=', value),
             ]
     elif operator == '<':
+        value = clause[2]
+        if value:
+            value = datetime.datetime.combine(value, datetime.time(0, 0))
         return [
-            ('start', '<',
-                datetime.datetime.combine(clause[2], datetime.time(0, 0))),
+            ('start', '<', value),
             ]
     elif operator == '<=':
+        value = clause[2]
+        if value:
+            value = datetime.datetime.combine(value + relativedelta(days=1),
+                datetime.time(0, 0))
         return [
-            ('start', '<',
-                datetime.datetime.combine(
-                    clause[2] + relativedelta(days=1),
-                    datetime.time(0, 0))),
+            ('start', '<', value),
             ]
     elif operator == '=':
         if clause[2] is None:
