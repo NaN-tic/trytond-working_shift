@@ -19,7 +19,7 @@
             <field name="group" ref="group_working_shift"/>
         </record>
 
-        <menuitem id="menu_working_shift" name="Working Shifts" sequence="6"/>
+        <menuitem id="menu_working_shift" name="Working Shifts" sequence="20"/>
 
         <!-- working_shift -->
         <record model="ir.ui.view" id="working_shift_view_form">
