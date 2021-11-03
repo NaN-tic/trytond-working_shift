@@ -18,7 +18,9 @@ class User(metaclass=PoolMeta):
         preferences = super(User, cls).get_preferences(context_only)
         if LOGIN:
             actions = preferences.get('actions', [])
-            actions.insert(0,ModelData.get_id('working_shift',
-                    'wizard_employee_working_shift_start'))
-            preferences['actions'] = actions
+            wizard_start = ModelData.get_id('working_shift',
+                    'wizard_employee_working_shift_start')
+            if wizard_start not in actions:
+                actions.insert(0, wizard_start)
+                preferences['actions'] = actions
         return preferences.copy()
