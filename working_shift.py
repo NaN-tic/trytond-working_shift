@@ -113,7 +113,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
             ('confirmed', 'Confirmed'),
             ('done', 'Done'),
             ('cancelled', "Cancelled"),
-            ], 'State', required=True, readonly=True, select=True)
+            ], 'State', required=True, readonly=True)
 
     @classmethod
     def __setup__(cls):
