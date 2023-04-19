@@ -20,6 +20,10 @@
         </record>
 
         <menuitem id="menu_working_shift" name="Working Shifts" sequence="20"/>
+        <record model="ir.ui.menu-res.group" id="menu_working_shift_group_working_shift">
+            <field name="menu" ref="menu_working_shift"/>
+            <field name="group" ref="group_working_shift"/>
+        </record>
 
         <!-- working_shift -->
         <record model="ir.ui.view" id="working_shift_view_form">
@@ -74,11 +78,11 @@
 
         <menuitem id="menu_working_shift_form" action="act_working_shift"
             parent="menu_working_shift" sequence="10"/>
-        <record model="ir.ui.menu-res.group" id="menu_working_shift_group_working_shift">
+        <record model="ir.ui.menu-res.group" id="menu_working_shift_form_group_working_shift">
             <field name="menu" ref="menu_working_shift_form"/>
             <field name="group" ref="group_working_shift"/>
         </record>
-        <record model="ir.ui.menu-res.group" id="menu_working_shift_group_working_shift_admin">
+        <record model="ir.ui.menu-res.group" id="menu_working_shift_form_group_working_shift_admin">
             <field name="menu" ref="menu_working_shift_form"/>
             <field name="group" ref="group_working_shift_admin"/>
         </record>
