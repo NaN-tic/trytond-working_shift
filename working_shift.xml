@@ -20,10 +20,6 @@
         </record>
 
         <menuitem id="menu_working_shift" name="Working Shifts" sequence="20"/>
-        <record model="ir.ui.menu-res.group" id="menu_working_shift_group_working_shift">
-            <field name="menu" ref="menu_working_shift"/>
-            <field name="group" ref="group_working_shift"/>
-        </record>
 
         <!-- working_shift -->
         <record model="ir.ui.view" id="working_shift_view_form">
