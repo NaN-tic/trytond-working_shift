@@ -264,6 +264,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         if not config.working_shift_sequence:
             raise UserError(gettext(
                 'working_shift.missing_working_shift_sequence'))
+        vlist = [x.copy() for x in vlist]
         for value in vlist:
             if value.get('code'):
                 continue
