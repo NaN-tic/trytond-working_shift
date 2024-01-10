@@ -20,7 +20,6 @@ __all__ = ['WorkingShift', 'EmployeeWorkingShiftStart', 'EmployeeWorkingShift']
 STATES = {
     'readonly': Eval('state') != 'draft',
     }
-DEPENDS = ['state']
 
 
 def start_date_searcher(name, clause):
@@ -90,9 +89,8 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
     _rec_name = 'code'
     code = fields.Char('Code', readonly=True, required=True)
     employee = fields.Many2One('company.employee', 'Employee', required=True,
-        states=STATES, depends=DEPENDS)
-    start = fields.DateTime('Start', required=True, states=STATES,
-        depends=DEPENDS)
+        states=STATES)
+    start = fields.DateTime('Start', required=True, states=STATES)
     start_date = fields.Function(fields.Date('Start Date'),
         'get_start_date', searcher='search_start_date')
     end = fields.DateTime('End', domain=[
@@ -104,7 +102,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         states={
             'readonly': Eval('state').in_(['cancelled', 'done']),
             'required': Eval('state').in_(['done']),
-            }, depends=DEPENDS+['start'])
+            }, depends=['start'])
     hours = fields.Function(fields.Numeric('Hours', digits=(16, 2)),
         'on_change_with_hours')
     comment = fields.Text('Comment')
@@ -295,7 +293,7 @@ class EmployeeWorkingShiftStart(ModelView):
         domain=[
             ('employee', '=', Eval('employee', -1)),
             ('state', 'in', ['draft', 'confirmed']),
-        ], depends=['employee'])
+        ])
     employee = fields.Many2One('company.employee', 'Employee', required=True,
         readonly=True)
     start = fields.DateTime('Start')
