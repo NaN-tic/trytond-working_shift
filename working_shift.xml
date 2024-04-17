@@ -131,7 +131,7 @@
 
         <!-- access -->
         <record model="ir.model.access" id="access_working_shift">
-            <field name="model" search="[('model', '=', 'working_shift')]"/>
+            <field name="model">working_shift</field>
             <field name="group" ref="group_working_shift"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
@@ -139,7 +139,7 @@
             <field name="perm_delete" eval="True"/>
         </record>
         <record model="ir.model.access" id="access_working_shift_default">
-            <field name="model" search="[('model', '=', 'working_shift')]"/>
+            <field name="model">working_shift</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
             <field name="perm_create" eval="True"/>
@@ -147,7 +147,7 @@
         </record>
 
         <record model="ir.model.access" id="access_working_shift_admin">
-            <field name="model" search="[('model', '=', 'working_shift')]"/>
+            <field name="model">working_shift</field>
             <field name="group" ref="group_working_shift_admin"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
@@ -159,7 +159,7 @@
         <record model="ir.model.button" id="working_shift_cancel_button">
             <field name="name">cancel</field>
             <field name="string">Cancel</field>
-            <field name="model" search="[('model', '=', 'working_shift')]"/>
+            <field name="model">working_shift</field>
         </record>
         <record model="ir.model.button-res.group" id="working_shift_cancel_button_group_working_shift">
             <field name="button" ref="working_shift_cancel_button"/>
@@ -168,7 +168,7 @@
         <record model="ir.model.button" id="working_shift_draft_button">
             <field name="name">draft</field>
             <field name="string">Draft</field>
-            <field name="model" search="[('model', '=', 'working_shift')]"/>
+            <field name="model">working_shift</field>
         </record>
         <record model="ir.model.button-res.group" id="working_shift_draft_button_group_working_shift">
             <field name="button" ref="working_shift_draft_button"/>
@@ -177,7 +177,7 @@
         <record model="ir.model.button" id="working_shift_confirm_button">
             <field name="name">confirm</field>
             <field name="string">Confirm</field>
-            <field name="model" search="[('model', '=', 'working_shift')]"/>
+            <field name="model">working_shift</field>
         </record>
         <record model="ir.model.button-res.group" id="working_shift_confirm_button_group_working_shift">
             <field name="button" ref="working_shift_confirm_button"/>
@@ -186,7 +186,7 @@
         <record model="ir.model.button" id="working_shift_done_button">
             <field name="name">done</field>
             <field name="string">Done</field>
-            <field name="model" search="[('model', '=', 'working_shift')]"/>
+            <field name="model">working_shift</field>
         </record>
         <record model="ir.model.button-res.group" id="working_shift_done_button_group_working_shift">
             <field name="button" ref="working_shift_done_button"/>
