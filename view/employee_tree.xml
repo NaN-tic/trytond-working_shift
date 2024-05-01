@@ -1,0 +1,6 @@
+<data>
+    <xpath expr="/tree" position="inside">
+        <field name="create_working_days" optional="1"/>
+    </xpath>
+</data>
+
