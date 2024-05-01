@@ -1,0 +1,13 @@
+<form col="6">
+    <label name="employee"/>
+    <field name="employee"/>
+    <label name="date"/>
+    <field name="date"/>
+    <label name="hours"/>
+    <field name="hours"/>
+    <label name="missing_hours"/>
+    <field name="missing_hours"/>
+    <label name="exceeding_hours"/>
+    <field name="exceeding_hours"/>
+    <field name="working_shifts" colspan="6"/>
+</form>

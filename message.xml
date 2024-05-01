@@ -9,5 +9,8 @@ this repository contains the full copyright notices and license terms. -->
       <record model="ir.message" id="delete_non_draft">
           <field name="text">Working Shift "%(ws)s" can not be deleted because it is not in draft state.</field>
       </record>
+      <record model="ir.message" id="msg_working_day_unique">
+          <field name="text">Working day must be unique per employee.</field>
+      </record>
     </data>
 </tryton>

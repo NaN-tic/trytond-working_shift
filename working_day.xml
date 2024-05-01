@@ -1,0 +1,94 @@
+<tryton>
+    <data>
+        <!-- employee.working_day -->
+        <record model="ir.ui.view" id="working_day_view_tree">
+            <field name="name">working_day_tree</field>
+            <field name="model">employee.working_day</field>
+            <field name="type">tree</field>
+        </record>
+        <record model="ir.ui.view" id="working_day_view_form">
+            <field name="name">working_day_form</field>
+            <field name="model">employee.working_day</field>
+            <field name="type">form</field>
+        </record>
+        <record model="ir.ui.view" id="working_day_view_calendar">
+            <field name="name">working_day_calendar</field>
+            <field name="model">employee.working_day</field>
+            <field name="type">calendar</field>
+        </record>
+        <record model="ir.action.act_window" id="action_working_day">
+            <field name="name">Working Days</field>
+            <field name="res_model">employee.working_day</field>
+        </record>
+        <record model="ir.action.act_window.view" id="action_working_day_view_tree">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="working_day_view_tree"/>
+            <field name="act_window" ref="action_working_day"/>
+        </record>
+        <record model="ir.action.act_window.view" id="action_working_day_view_form">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="working_day_view_form"/>
+            <field name="act_window" ref="action_working_day"/>
+        </record>
+
+        <menuitem action="action_working_day" id="menu_working_day" parent="menu_configuration" sequence="30"/>
+
+        <record model="ir.action.act_window" id="action_working_day_calendar">
+            <field name="name">Working Days Calendar</field>
+            <field name="res_model">employee.working_day</field>
+        </record>
+        <record model="ir.action.act_window.view" id="action_working_day_view_calendar">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="working_day_view_calendar"/>
+            <field name="act_window" ref="action_working_day_calendar"/>
+        </record>
+        <record model="ir.action.act_window.view" id="action_working_day_view_calendar_form">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="working_day_view_form"/>
+            <field name="act_window" ref="action_working_day_calendar"/>
+        </record>
+
+        <menuitem action="action_working_day_calendar" id="menu_working_day_calendar" parent="menu_working_day" sequence="10"/>
+
+        <!-- employee.working_day.rule -->
+        <record model="ir.ui.view" id="working_day_rule_view_tree">
+            <field name="name">working_day_rule_tree</field>
+            <field name="model">employee.working_day.rule</field>
+            <field name="type">tree</field>
+        </record>
+        <record model="ir.ui.view" id="working_day_rule_view_form">
+            <field name="name">working_day_rule_form</field>
+            <field name="model">employee.working_day.rule</field>
+            <field name="type">form</field>
+        </record>
+        <record model="ir.action.act_window" id="action_working_day_rule">
+            <field name="name">Working Day Rules</field>
+            <field name="res_model">employee.working_day.rule</field>
+        </record>
+        <record model="ir.action.act_window.view" id="action_working_day_rule_view_tree">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="working_day_rule_view_tree"/>
+            <field name="act_window" ref="action_working_day_rule"/>
+        </record>
+        <record model="ir.action.act_window.view" id="action_working_day_rule_view_form">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="working_day_rule_view_form"/>
+            <field name="act_window" ref="action_working_day_rule"/>
+        </record>
+
+        <menuitem action="action_working_day_rule" id="menu_working_day_rule" parent="menu_configuration" sequence="20"/>
+
+        <!-- employee.working_day.create -->
+        <record model="ir.ui.view" id="working_day_start_view_form">
+            <field name="name">working_day_start_form</field>
+            <field name="model">employee.working_day.start</field>
+            <field name="type">form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="working_day_wizard">
+            <field name="name">Create Working Days</field>
+            <field name="wiz_name">employee.working_day.create</field>
+        </record>
+        <menuitem id="menu_working_day_wizard" action="working_day_wizard" parent="menu_configuration" sequence="40"/>
+    </data>
+</tryton>

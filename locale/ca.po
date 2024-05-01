@@ -1,6 +1,57 @@
 #
+# Albert Cervera i Areny <albert@nan-tic.com>, 2024.
 msgid ""
-msgstr "Content-Type: text/plain; charset=utf-8\n"
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: Albert Cervera i Areny <albert@nan-tic.com>\n"
+"PO-Revision-Date: 2024-05-01 09:58+0200\n"
+"Project-Id-Version: \n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca_ES\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.12.3\n"
+
+msgctxt "field:employee.working_day,date:"
+msgid "Date"
+msgstr "Data"
+
+msgctxt "field:employee.working_day,employee:"
+msgid "Employee"
+msgstr "Empleat"
+
+msgctxt "field:employee.working_day,exceeding_hours:"
+msgid "Exceeding Hours"
+msgstr "Hores sobrants"
+
+msgctxt "field:employee.working_day,hours:"
+msgid "Hours"
+msgstr "Hores"
+
+msgctxt "field:employee.working_day,missing_hours:"
+msgid "Missing Hours"
+msgstr "Hores faltants"
+
+msgctxt "field:employee.working_day,working_shifts:"
+msgid "Working Shifts"
+msgstr "Torns de Treball"
+
+msgctxt "field:employee.working_day.rule,hours:"
+msgid "Hours"
+msgstr "Hores"
+
+msgctxt "field:employee.working_day.rule,weekday:"
+msgid "Day of Week"
+msgstr "Dia de la setmana"
+
+msgctxt "field:employee.working_day.start,end_date:"
+msgid "End Date"
+msgstr "Data final"
+
+msgctxt "field:employee.working_day.start,start_date:"
+msgid "Start Date"
+msgstr "Data d'inici"
 
 msgctxt "field:employee.working_shift.start,employee:"
 msgid "Employee"
@@ -9,10 +60,6 @@ msgstr "Empleat"
 msgctxt "field:employee.working_shift.start,end:"
 msgid "End"
 msgstr "Finalitzat"
-
-msgctxt "field:employee.working_shift.start,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "field:employee.working_shift.start,start:"
 msgid "Start"
@@ -30,14 +77,6 @@ msgctxt "field:working_shift,comment:"
 msgid "Comment"
 msgstr "Observacions"
 
-msgctxt "field:working_shift,create_date:"
-msgid "Created at"
-msgstr "Data de creació"
-
-msgctxt "field:working_shift,create_uid:"
-msgid "Created by"
-msgstr "Usuari de creació"
-
 msgctxt "field:working_shift,employee:"
 msgid "Employee"
 msgstr "Empleat"
@@ -49,14 +88,6 @@ msgstr "Finalitzat"
 msgctxt "field:working_shift,hours:"
 msgid "Hours"
 msgstr "Hores"
-
-msgctxt "field:working_shift,id:"
-msgid "ID"
-msgstr "ID"
-
-msgctxt "field:working_shift,rec_name:"
-msgid "Record Name"
-msgstr "Nom del registre"
 
 msgctxt "field:working_shift,start:"
 msgid "Start"
@@ -70,73 +101,29 @@ msgctxt "field:working_shift,state:"
 msgid "State"
 msgstr "Estat"
 
-msgctxt "field:working_shift,write_date:"
-msgid "Edited at"
-msgstr "Data de modificació"
-
-msgctxt "field:working_shift,write_uid:"
-msgid "Edited by"
-msgstr "Usuari de modificació"
-
-msgctxt "field:working_shift.configuration,create_date:"
-msgid "Created at"
-msgstr "Data de creació"
-
-msgctxt "field:working_shift.configuration,create_uid:"
-msgid "Created by"
-msgstr "Usuari de creació"
-
-msgctxt "field:working_shift.configuration,id:"
-msgid "ID"
-msgstr "ID"
-
-msgctxt "field:working_shift.configuration,rec_name:"
-msgid "Record Name"
-msgstr "Nom del registre"
-
 msgctxt "field:working_shift.configuration,working_shift_sequence:"
 msgid "Working Shift Sequence"
 msgstr "Seqüència torns de treball"
-
-msgctxt "field:working_shift.configuration,write_date:"
-msgid "Edited at"
-msgstr "Data de modificació"
-
-msgctxt "field:working_shift.configuration,write_uid:"
-msgid "Edited by"
-msgstr "Usuari de modificació"
 
 msgctxt "field:working_shift.configuration.sequence,company:"
 msgid "Company"
 msgstr "Empresa"
 
-msgctxt "field:working_shift.configuration.sequence,create_date:"
-msgid "Created at"
-msgstr "Data de creació"
-
-msgctxt "field:working_shift.configuration.sequence,create_uid:"
-msgid "Created by"
-msgstr "Usuari de creació"
-
-msgctxt "field:working_shift.configuration.sequence,id:"
-msgid "ID"
-msgstr "ID"
-
-msgctxt "field:working_shift.configuration.sequence,rec_name:"
-msgid "Record Name"
-msgstr "Nom del registre"
-
 msgctxt "field:working_shift.configuration.sequence,working_shift_sequence:"
 msgid "Working Shift Sequence"
 msgstr "Seqüència torns de treball"
 
-msgctxt "field:working_shift.configuration.sequence,write_date:"
-msgid "Edited at"
-msgstr "Data de modificació"
+msgctxt "model:employee.working_day,name:"
+msgid "Working Day"
+msgstr "Dia laborable"
 
-msgctxt "field:working_shift.configuration.sequence,write_uid:"
-msgid "Edited by"
-msgstr "Usuari de modificació"
+msgctxt "model:employee.working_day.rule,name:"
+msgid "Working Day Rule"
+msgstr "Regla de dia laborable"
+
+msgctxt "model:employee.working_day.start,name:"
+msgid "Working Day Start"
+msgstr "Inici dia laborable"
 
 msgctxt "model:employee.working_shift.start,name:"
 msgid "Employee Working Shift Start"
@@ -158,9 +145,25 @@ msgctxt "model:ir.action,name:act_working_shift_employee"
 msgid "Working Shifts by Employee"
 msgstr "Els meus torns de treball"
 
+msgctxt "model:ir.action,name:action_working_day"
+msgid "Working Days"
+msgstr "Dies laborables"
+
+msgctxt "model:ir.action,name:action_working_day_calendar"
+msgid "Working Days Calendar"
+msgstr "Calendari de dies laborables"
+
+msgctxt "model:ir.action,name:action_working_day_rule"
+msgid "Working Day Rules"
+msgstr "Regles de dies laborables"
+
 msgctxt "model:ir.action,name:wizard_employee_working_shift_start"
 msgid "Start/End"
 msgstr "Inici/Fi"
+
+msgctxt "model:ir.action,name:working_day_wizard"
+msgid "Create Working Days"
+msgstr "Crear dies laborables"
 
 msgctxt "model:ir.action.act_window.domain,name:act_working_shift_domain_all"
 msgid "All"
@@ -171,8 +174,7 @@ msgctxt ""
 msgid "Confirmed"
 msgstr "Confirmat"
 
-msgctxt ""
-"model:ir.action.act_window.domain,name:act_working_shift_domain_draft"
+msgctxt "model:ir.action.act_window.domain,name:act_working_shift_domain_draft"
 msgid "Draft"
 msgstr "Esborrany"
 
@@ -182,7 +184,8 @@ msgid "All"
 msgstr "Tots"
 
 msgctxt ""
-"model:ir.action.act_window.domain,name:act_working_shift_employee_domain_confirmed"
+"model:ir.action.act_window.domain,name:act_working_shift_employee_domain_confi"
+"rmed"
 msgid "Confirmed"
 msgstr "Confirmat"
 
@@ -206,6 +209,10 @@ msgid ""
 msgstr ""
 "No s'ha definit cap seqüència de torn de treball. Si us plau, defineixi una "
 "en la configuració de torns de treball."
+
+msgctxt "model:ir.message,text:msg_working_day_unique"
+msgid "Working day must be unique per employee."
+msgstr "El dia laborable ha de ser única per treballador."
 
 msgctxt "model:ir.model.button,string:working_shift_cancel_button"
 msgid "Cancel"
@@ -250,6 +257,22 @@ msgstr "Configuració"
 msgctxt "model:ir.ui.menu,name:menu_employee_working_shift_start"
 msgid "Start/End"
 msgstr "Inici/Fi"
+
+msgctxt "model:ir.ui.menu,name:menu_working_day"
+msgid "Working Days"
+msgstr "Dies laborables"
+
+msgctxt "model:ir.ui.menu,name:menu_working_day_calendar"
+msgid "Working Days Calendar"
+msgstr "Calendari de dies laborables"
+
+msgctxt "model:ir.ui.menu,name:menu_working_day_rule"
+msgid "Working Day Rules"
+msgstr "Regles de dies laborables"
+
+msgctxt "model:ir.ui.menu,name:menu_working_day_wizard"
+msgid "Create Working Days"
+msgstr "Crear dies laborables"
 
 msgctxt "model:ir.ui.menu,name:menu_working_shift"
 msgid "Working Shifts"
@@ -318,6 +341,14 @@ msgstr "Hores"
 msgctxt "view:working_shift:"
 msgid "Time"
 msgstr "Temps"
+
+msgctxt "wizard_button:employee.working_day.create,start,create_:"
+msgid "Create"
+msgstr "Crear"
+
+msgctxt "wizard_button:employee.working_day.create,start,end:"
+msgid "Cancel"
+msgstr "Cancel·lar"
 
 msgctxt "wizard_button:employee.working_shift,start,end:"
 msgid "Cancel"

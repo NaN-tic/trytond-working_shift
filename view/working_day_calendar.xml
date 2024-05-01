@@ -1,0 +1,4 @@
+<calendar dtstart="date">
+    <field name="employee"/>
+    <field name="hours"/>
+</calendar>

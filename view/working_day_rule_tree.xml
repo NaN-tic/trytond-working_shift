@@ -1,0 +1,4 @@
+<tree>
+    <field name="weekday"/>
+    <field name="hours"/>
+</tree>

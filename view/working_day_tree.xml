@@ -1,0 +1,7 @@
+<tree>
+    <field name="employee"/>
+    <field name="date"/>
+    <field name="hours"/>
+    <field name="missing_hours"/>
+    <field name="exceeding_hours"/>
+</tree>
