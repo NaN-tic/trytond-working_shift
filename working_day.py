@@ -121,6 +121,7 @@ class WorkingDay(ModelSQL, ModelView):
         if employees is None:
             employees = Employee.search([
                     ('company', '=', Transaction().context.get('company')),
+                    ('create_working_days', '=', True),
                     ('OR',
                         ('start_date', '<=', end_date),
                         ('start_date', '=', None),

@@ -1,0 +1,6 @@
+<data>
+    <xpath expr="/form" position="inside">
+        <label name="create_working_days"/>
+        <field name="create_working_days"/>
+    </xpath>
+</data>
