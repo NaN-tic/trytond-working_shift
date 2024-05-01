@@ -1,7 +1,7 @@
 <tree>
     <field name="employee"/>
     <field name="date"/>
-    <field name="hours"/>
-    <field name="missing_hours"/>
-    <field name="exceeding_hours"/>
+    <field name="hours" sum="1"/>
+    <field name="missing_hours" sum="1"/>
+    <field name="exceeding_hours" sum="1"/>
 </tree>
