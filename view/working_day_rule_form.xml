@@ -1,0 +1,6 @@
+<form>
+    <label name="weekday"/>
+    <field name="weekday"/>
+    <label name="hours"/>
+    <field name="hours"/>
+</form>
