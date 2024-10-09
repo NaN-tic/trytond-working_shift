@@ -133,10 +133,6 @@ msgctxt "model:employee.working_shift.start,name:"
 msgid "Employee Working Shift Start"
 msgstr "Inici empleat torn de treball"
 
-msgctxt "model:ir.action,name:"
-msgid "Categories"
-msgstr "Tipus"
-
 msgctxt "model:ir.action,name:act_working_shift"
 msgid "Working Shifts"
 msgstr "Torns de treball"
