@@ -244,10 +244,6 @@ msgctxt "model:ir.sequence.type,name:sequence_type_working_shift"
 msgid "Working Shift"
 msgstr "Turno de trabajo"
 
-msgctxt "model:ir.ui.menu,name:"
-msgid "Categories"
-msgstr "Tipos"
-
 msgctxt "model:ir.ui.menu,name:menu_configuration"
 msgid "Configuration"
 msgstr "Configuración"
