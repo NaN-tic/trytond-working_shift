@@ -1,4 +1,4 @@
 <tree>
-    <field name="weekday"/>
+    <field name="weekday" widget="selection"/>
     <field name="hours"/>
 </tree>

@@ -1,6 +1,6 @@
 <form>
     <label name="weekday"/>
-    <field name="weekday"/>
+    <field name="weekday" widget="selection"/>
     <label name="hours"/>
     <field name="hours"/>
 </form>
