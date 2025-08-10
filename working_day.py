@@ -49,8 +49,8 @@ class WorkingDay(ModelSQL, ModelView):
         'get_missing_hours')
     exceeding_hours = fields.Function(fields.Numeric('Exceeding Hours'),
         'get_exceeding_hours')
-    working_shifts = fields.Function(fields.One2Many('working_shift',
-        None, 'Working Shifts'), 'get_working_shifts')
+    working_shifts = fields.Function(fields.Many2Many('working_shift',
+        None, None, 'Working Shifts'), 'get_working_shifts')
 
     @classmethod
     def __setup__(cls):
