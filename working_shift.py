@@ -5,7 +5,6 @@ import pytz
 from dateutil.relativedelta import relativedelta
 from decimal import Decimal
 
-from trytond import backend
 from trytond.model import Workflow, ModelSQL, ModelView, fields
 from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.pyson import Eval
@@ -151,7 +150,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         sql_table = cls.__table__()
 
         # Migration from 3.4.0: renamed start/end_date to start/end
-        table = backend.TableHandler(cls, module_name)
+        table = cls.__table_handler__(module_name)
         start_end_date_exist = (table.column_exist('start_date')
             and table.column_exist('end_date'))
 
@@ -162,7 +161,7 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
             cursor.execute(*sql_table.update(
                     columns=[sql_table.start, sql_table.end],
                     values=[sql_table.start_date, sql_table.end_date]))
-            table = backend.TableHandler(cls, module_name)
+            table = cls.__table_handler__(module_name)
             table.not_null_action('start', action='add')
             table.drop_column('start_date')
             table.drop_column('end_date')
