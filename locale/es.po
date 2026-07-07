@@ -184,12 +184,6 @@ msgid "All"
 msgstr "Todos"
 
 msgctxt ""
-"model:ir.action.act_window.domain,name:act_working_shift_employee_domain_confi"
-"rmed"
-msgid "Confirmed"
-msgstr "Confirmado"
-
-msgctxt ""
 "model:ir.action.act_window.domain,name:act_working_shift_employee_domain_draft"
 msgid "Draft"
 msgstr "Borrador"
