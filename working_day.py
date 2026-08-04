@@ -221,8 +221,9 @@ class WorkingDayWizard(Wizard):
     create_ = StateTransition()
 
     def transition_create_(self):
+        pool = Pool()
+        WorkingDay = pool.get('employee.working_day')
         WorkingDay.compute(
             start_date=self.start.start_date,
             end_date=self.start.end_date)
         return 'end'
-
