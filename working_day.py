@@ -108,6 +108,8 @@ class WorkingDay(ModelSQL, ModelView):
         Weekday = pool.get('ir.calendar.day')
         Rule = pool.get('employee.working_day.rule')
         try:
+            # This should require an extras_depend with employee_leave module, but we
+            # don't add it as it would create a circular dependency
             Leave = pool.get('employee.leave')
         except KeyError:
             Leave = None
