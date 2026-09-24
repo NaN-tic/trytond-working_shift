@@ -6,17 +6,9 @@
         <record model="res.group" id="group_working_shift_admin">
             <field name="name">Working Shifts Administration</field>
         </record>
-        <record model="res.user-res.group" id="user_admin_group_working_shift_admin">
-            <field name="user" ref="res.user_admin"/>
-            <field name="group" ref="group_working_shift_admin"/>
-        </record>
 
         <record model="res.group" id="group_working_shift">
             <field name="name">Working Shifts</field>
-        </record>
-        <record model="res.user-res.group" id="user_admin_group_working_shift">
-            <field name="user" ref="res.user_admin"/>
-            <field name="group" ref="group_working_shift"/>
         </record>
 
         <menuitem id="menu_working_shift" name="Working Shifts" sequence="20"/>

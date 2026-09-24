@@ -38,10 +38,6 @@
         <record model="ir.sequence.type" id="sequence_type_working_shift">
             <field name="name">Working Shift</field>
         </record>
-        <record model="ir.sequence.type-res.group" id="sequence_type_working_shift_admin">
-            <field name="sequence_type" ref="sequence_type_working_shift"/>
-            <field name="group" ref="res.group_admin"/>
-        </record>
         <record model="ir.sequence.type-res.group" id="sequence_type_working_shift_working_shift_admin">
             <field name="sequence_type" ref="sequence_type_working_shift"/>
             <field name="group" ref="group_working_shift_admin"/>
