@@ -253,20 +253,19 @@ class WorkingShift(Workflow, ModelSQL, ModelView):
         pass
 
     @classmethod
-    def create(cls, vlist):
+    def preprocess_values(cls, mode, values):
+        values = super().preprocess_values(mode, values)
+        if mode != 'create' or values.get('code'):
+            return values
+
         pool = Pool()
         Config = pool.get('working_shift.configuration')
-
         config = Config(1)
         if not config.working_shift_sequence:
             raise UserError(gettext(
                 'working_shift.missing_working_shift_sequence'))
-        vlist = [x.copy() for x in vlist]
-        for value in vlist:
-            if value.get('code'):
-                continue
-            value['code'] = config.working_shift_sequence.get()
-        return super(WorkingShift, cls).create(vlist)
+        values['code'] = config.working_shift_sequence.get()
+        return values
 
     @classmethod
     def copy(cls, working_shifts, default=None):
