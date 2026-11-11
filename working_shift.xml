@@ -198,4 +198,10 @@
         <menuitem id="menu_employee_working_shift_start"
           action="wizard_employee_working_shift_start" parent="menu_working_shift"/>
     </data>
+    <data>
+        <record model="ir.action-res.group" id="employee_working_shift_group_working_shift">
+            <field name="action" ref="wizard_employee_working_shift_start"/>
+            <field name="group" ref="group_working_shift"/>
+        </record>
+    </data>
 </tryton>
